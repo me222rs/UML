@@ -114,15 +114,27 @@ namespace BåtklubbGladPirat
             List<string> strArr = new List<string>();
             foreach (string r in lines)
             {
-
-                
                 strArr.Add(r);
-
                 //Console.WriteLine("{0}", info[0]);
             }
 
             return strArr;
 
         }
+
+        public void deleteMember(int member, List<string> memberList)//Tar bort medlem beroende på radnummer
+        {
+            memberList.RemoveAt(member);
+            var lineCount = File.ReadLines("medlem.txt").Count();
+
+            using (StreamWriter writer = new StreamWriter("medlem.txt"))
+            {
+                for (int i = 0; i < lineCount; i++)
+                {
+                    writer.WriteLine(memberList[i]);//här är de nått fel!
+                }
+            }
+        }
+
     }
 }

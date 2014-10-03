@@ -29,12 +29,33 @@ namespace BåtklubbGladPirat
                      case 3:
                          ViewAllMembers();
                          break;
+                     case 4:
+                         deleteMember();
+                         break;
 
 
-
+                         
                  }
                  ContinueOnKeyPressed();
              } while (true);
+        }
+
+
+        private static void deleteMember()//Frågar vilken medlem man vill ta bort
+        {
+            int count = 0;
+            Model model = new Model(memberTextFile);
+            List<string> memberList = model.ViewCompactListMembers();
+            foreach(string r in memberList){
+                Console.WriteLine("{0}: {1}", count, r); //lägger till radnummer framför
+                count++;
+            }
+
+            Console.Write("Vilken medlem vill du ta bort: ");
+            int member = int.Parse(Console.ReadLine());
+
+            Model models = new Model(memberTextFile);
+            models.deleteMember(member, memberList);
         }
 
         private static void ViewCompactListMembers() 
