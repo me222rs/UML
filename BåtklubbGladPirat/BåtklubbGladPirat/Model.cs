@@ -46,7 +46,7 @@ namespace BåtklubbGladPirat
                     writer2.WriteLine(medlemsnummer);
                 }
 
-                writer.Write("\n" + medlemsnummer + " " +namn +";" + personnummer  + ";");
+                writer.Write(medlemsnummer + " " +namn + " " +";" + personnummer  + ";" + "\n");
 
             }
         }
@@ -60,7 +60,7 @@ namespace BåtklubbGladPirat
             int uniqueNumber;
             string uniqueNumber2 = "";
             Random random = new Random();
-            uniqueNumber = random.Next(1, 999999);
+            uniqueNumber = random.Next(99999, 999999);
             //uniqueNumber = 666;
             uniqueNumber2 = uniqueNumber.ToString();
 
@@ -94,47 +94,141 @@ namespace BåtklubbGladPirat
         {
             string[] lines = File.ReadAllLines("medlem.txt");
             List<string>strArr = new List<string>();
+
+            string[] numberOfBoats = File.ReadAllLines("boat.txt");
+            
             foreach (string r in lines)
             {
-
+                int count = 0;
+                foreach (string n in numberOfBoats) 
+                {
+                    if (r.Substring(0, 6) == n.Substring(0, 6))//Kollar om medlemsnummer i en rad är lika med båtars medlemsnummer
+                    {
+                        count++;
+                    }
+                }
                 string[] info = r.Split(';');
-                //List<string> arrlist = new List<string>(strArr);
-                strArr.Add(info[0]);
-               
-                //Console.WriteLine("{0}", info[0]);
+                strArr.Add(info[0] + " " + count + " Båt(ar)");
             }
-
             return strArr;
-            
         }
 
-        public List<string> ViewAllMembers()
+        public List<string> ViewAllMembers() 
         {
             string[] lines = File.ReadAllLines("medlem.txt");
             List<string> strArr = new List<string>();
+
             foreach (string r in lines)
             {
                 strArr.Add(r);
-                //Console.WriteLine("{0}", info[0]);
             }
-
             return strArr;
-
         }
 
-        public void deleteMember(int member, List<string> memberList)//Tar bort medlem beroende på radnummer
+        public List<string> ViewCompleteMembers()
+        {
+            string[] lines = File.ReadAllLines("medlem.txt");
+            List<string> strArr = new List<string>();
+
+            string[] numberOfBoats = File.ReadAllLines("boat.txt");
+            List<string> boats = new List<string>();
+
+            foreach (string r in lines)
+            {
+                foreach (string n in numberOfBoats)
+                {
+                    if (r.Substring(0, 6) == n.Substring(0, 6))
+                    {
+                       string p = n.Substring(7);
+                        boats.Add(p);
+                    }
+                }
+                strArr.Add(r);
+                strArr.AddRange(boats);
+                boats.Clear();
+                //Console.WriteLine("{0}", info[0]);
+            }
+           return strArr;
+        }
+
+        public List<string> ViewAllboats()
+        {
+            string[] numberOfBoats = File.ReadAllLines("boat.txt");
+            List<string> boats = new List<string>();
+
+                foreach (string n in numberOfBoats)
+                {
+                    boats.Add(n);
+                }
+            return boats;
+        }
+
+        public void DeleteMember(int member, List<string> memberList)//Tar bort medlem beroende på radnummer
         {
             memberList.RemoveAt(member);
             var lineCount = File.ReadLines("medlem.txt").Count();
 
             using (StreamWriter writer = new StreamWriter("medlem.txt"))
             {
-                for (int i = 0; i < lineCount; i++)
+                for (int i = 0; i < lineCount -1; i++)
                 {
-                    writer.WriteLine(memberList[i]);//här är de nått fel!
+                    writer.WriteLine(memberList[i]);
                 }
             }
         }
 
+        public void EditMember(int member, List<string> memberList, string name, int personalID, int memberID) 
+        {
+            DeleteMember(member, memberList);
+
+            using (StreamWriter writer = new StreamWriter("medlem.txt", true))
+            {
+
+                writer.Write(memberID + " " + name + ";" + personalID + ";" + "\n");
+
+            }
+        }
+
+        public void AddBoat(int memberID, int type, int length) 
+        {
+            string boatType = "";
+            switch(type)//Gör om båttypen till en sträng istället för nummer
+            {
+                case 0:
+                    boatType = "Segelbåt";
+                    break;
+                case 1:
+                    boatType = "Motorseglare";
+                    break;
+                case 2:
+                    boatType = "Motorbåt";
+                    break;
+                case 3:
+                    boatType = "Kajak/Kanot";
+                    break;
+                case 4:
+                    boatType = "Övrigt";
+                    break;
+            }
+
+            using (StreamWriter writer = new StreamWriter("boat.txt", true))
+            {
+                writer.Write(memberID + ";" + boatType + ";" + length + ";" + "\n");
+            }
+        }
+
+        public void RemoveBoat(int boat, List<string> boatList) 
+        {
+            boatList.RemoveAt(boat);
+            var lineCount = File.ReadLines("boat.txt").Count();
+
+            using (StreamWriter writer = new StreamWriter("boat.txt"))
+            {
+                for (int i = 0; i < lineCount - 1; i++)
+                {
+                    writer.WriteLine(boatList[i]);
+                }
+            }
+        }
     }
 }

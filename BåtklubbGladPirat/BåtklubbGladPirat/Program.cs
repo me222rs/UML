@@ -9,6 +9,7 @@ namespace BåtklubbGladPirat
     class Program
     {
         private const string memberTextFile = "medlem.txt";
+        
 
         static void Main(string[] args)
         {
@@ -30,9 +31,23 @@ namespace BåtklubbGladPirat
                          ViewAllMembers();
                          break;
                      case 4:
-                         deleteMember();
+                         DeleteMember();
                          break;
-
+                     case 5:
+                         EditMember();
+                         break;
+                     case 6:
+                         ShowMember();
+                         break;
+                     case 7:
+                         AddBoat();
+                         break;
+                     case 8:
+                         RemoveBoat();
+                         break;
+                     //case 9:
+                     //    EditBoat();
+                     //    break;
 
                          
                  }
@@ -40,22 +55,124 @@ namespace BåtklubbGladPirat
              } while (true);
         }
 
+        private static void RemoveBoat()//Frågar vilken båt man vill ta bort
+        {
+            int count = 0;
+            Model model = new Model("boat.txt");
+            List<string> boatList = model.ViewAllboats();
+            foreach (string r in boatList)
+            {
+                Console.WriteLine("{0}: {1}", count, r); //lägger till radnummer framför
+                count++;
+            }
 
-        private static void deleteMember()//Frågar vilken medlem man vill ta bort
+            Console.Write("Vilken båt vill du ta sänka?: ");
+            int boat = int.Parse(Console.ReadLine());
+
+            model.RemoveBoat(boat, boatList);
+        }
+
+        private static void AddBoat() 
+        {
+            string[] boatType = new string[]{"Segelbåt", "Motorseglare", "Motorbåt", "Kajak/Kanot", "Övrigt"};
+
+            int count = 0;
+            Model model = new Model(memberTextFile);
+            List<string> memberList = model.ViewCompleteMembers();
+            foreach (string r in memberList)
+            {
+                Console.WriteLine("{0}: {1}", count, r);
+                count++;
+            }
+
+            Console.Write("Lägga till en båt på vem?: ");
+            int member = int.Parse(Console.ReadLine());
+
+            int memberID = int.Parse(memberList[member].Substring(0, 6));
+
+            int countBoatType = 0;
+            Console.WriteLine("Vilken båttyp: ");
+            foreach (string r in boatType) 
+            {
+                Console.WriteLine("{0}: {1}", countBoatType, r);
+                countBoatType++;
+            }
+            int type = int.Parse(Console.ReadLine());
+
+            Console.Write("Hur lång är båtfan i CM?: ");
+            int length = int.Parse(Console.ReadLine());
+
+            model.AddBoat(memberID, type, length);
+        }
+
+        private static void ShowMember() 
         {
             int count = 0;
             Model model = new Model(memberTextFile);
             List<string> memberList = model.ViewCompactListMembers();
+            foreach (string r in memberList)
+            {
+                Console.WriteLine("{0}: {1}", count, r);
+                count++;
+            }
+
+            Console.Write("Vilken medlem vill du visa?: ");
+            int member = int.Parse(Console.ReadLine());
+
+            Console.Clear();
+            List<string> oneMemberList = model.ViewCompleteMembers();
+            Console.WriteLine(oneMemberList[member]);
+        }
+
+        private static void EditMember() //Frågar vilken jävla medlem du vill redigera
+        {
+            int count = 0;
+            Model model = new Model(memberTextFile);
+            List<string> memberList = model.ViewAllMembers();
+            foreach (string r in memberList)
+            {
+                Console.WriteLine("{0}: {1}", count, r);
+                count++;
+            }
+
+            Console.Write("Vilken medlem vill du redigera?: ");
+            int member = int.Parse(Console.ReadLine());
+
+            Console.Clear();
+            List<string> oneMemberList = model.ViewCompleteMembers();
+            Console.WriteLine(oneMemberList[member]);
+
+            Console.WriteLine("Fyll i de nya uppgifterna");
+
+            Console.Write("Nytt namn: ");
+            string name = Console.ReadLine();
+
+            Console.Write("Nytt personnummer: ");
+            int personalID = int.Parse(Console.ReadLine());
+
+            int memberID = int.Parse(memberList[member].Substring(0, 6));
+            //int memberID = 
+            
+            model.EditMember(member, memberList, name, personalID, memberID);
+
+            Console.Write("SUCCESS");
+        }
+
+        private static void DeleteMember()//Frågar vilken medlem man vill ta bort
+        {
+            int count = 0;
+            Model model = new Model(memberTextFile);
+            List<string> memberList = model.ViewAllMembers();
             foreach(string r in memberList){
                 Console.WriteLine("{0}: {1}", count, r); //lägger till radnummer framför
                 count++;
             }
 
-            Console.Write("Vilken medlem vill du ta bort: ");
+            Console.Write("Vilken medlem vill du ta döda?: ");
             int member = int.Parse(Console.ReadLine());
 
-            Model models = new Model(memberTextFile);
-            models.deleteMember(member, memberList);
+            
+            model.DeleteMember(member, memberList);
         }
 
         private static void ViewCompactListMembers() 
@@ -72,7 +189,7 @@ namespace BåtklubbGladPirat
         private static void ViewAllMembers()
         {
             Model model = new Model(memberTextFile);
-            List<string> members = model.ViewAllMembers();
+            List<string> members = model.ViewCompleteMembers();
             foreach (string r in members)
             {
                 Console.WriteLine(r);
@@ -162,5 +279,7 @@ namespace BåtklubbGladPirat
             return choice;   //Returnar menyvalet
 
         }
+
+        public static object boat { get; set; }
     }
 }
