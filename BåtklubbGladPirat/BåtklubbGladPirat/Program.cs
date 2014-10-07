@@ -20,24 +20,24 @@ namespace BåtklubbGladPirat
                  switch (GetMenuChoice())//Visar menyn
                  {
                      case 0:
-                         return;
+                         return; //Avsluta 
                      case 1:
-                         CreateMember();
+                         CreateMember();//Skapa ny medlem
                          break;
                      case 2:
-                         ViewCompactListMembers();
+                         ViewCompactListMembers(); //Visa medlemmar med hur många båtar de har
                          break;
                      case 3:
-                         ViewAllMembers();
+                         ViewAllMembers(); // Visa alla medlemmar med deras båtar
                          break;
                      case 4:
-                         DeleteMember();
+                         DeleteMember();// Ta bort medlem
                          break;
                      case 5:
-                         EditMember();
+                         EditMember();// Redigera medlem
                          break;
                      case 6:
-                         ShowMember();
+                         ShowMember();//Visa en enstaka medlem med hans båtar
                          break;
                      case 7:
                          AddBoat();
@@ -139,7 +139,7 @@ namespace BåtklubbGladPirat
             model.AddBoat(memberID, type, length);
         }
 
-        private static void ShowMember() 
+        private static void ShowMember()//Visa enskild medlem 
         {
             int count = 0;
             Model model = new Model(memberTextFile);
@@ -276,7 +276,6 @@ namespace BåtklubbGladPirat
             Console.WriteLine(" 9. Redigera båt.\n");
             Console.WriteLine(" ===============================\n");
             Console.WriteLine(" Ange menyval [0-9]:");
-
 
             do
             {
