@@ -40,13 +40,13 @@ namespace BåtklubbGladPirat
                          ShowMember();//Visa en enstaka medlem med hans båtar
                          break;
                      case 7:
-                         AddBoat();
+                         AddBoat();//Lägger till en ny båt
                          break;
                      case 8:
-                         RemoveBoat();
+                         RemoveBoat();//Tar bort en befintlig båt
                          break;
                      case 9:
-                         EditBoat();
+                         EditBoat();//Redigerar en båt
                          break;
                  }
                  ContinueOnKeyPressed();
