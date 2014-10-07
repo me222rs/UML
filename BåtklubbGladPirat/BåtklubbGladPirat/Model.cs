@@ -53,12 +53,12 @@ namespace BåtklubbGladPirat
             }
         }
 
-        private static string createUniqueNumber()      //Fungerar bra
+        private static string createUniqueNumber() 
         {
             bool ifNumberExists;
             string ret = "";
 
-            do//Om ett nummer redan finns, ge han ett nytt utan att visa några errors
+            do//Om ett nummer redan finns, ge hen ett nytt utan att visa några errors
             {
                 int uniqueNumber;
                 Random random = new Random();
@@ -76,7 +76,7 @@ namespace BåtklubbGladPirat
             return ret;
         }
 
-        public List<string> ViewCompactListMembers()        //Fungerar utmärkt
+        public List<string> ViewCompactListMembers() //Visar en kompakt lista av medlemmarna och hur många båtar dom har var
         {
             string[] lines = File.ReadAllLines(memberTextFile);
             List<string>strArr = new List<string>();
@@ -99,7 +99,7 @@ namespace BåtklubbGladPirat
             return strArr;//Returnar en lista med medlemmar och hur många båtar de har
         }
 
-        public List<string> ViewAllMembers() 
+        public List<string> ViewAllMembers()//Visar alla medlemmar utan båtar
         {
             string[] lines = File.ReadAllLines(memberTextFile);
             List<string> strArr = new List<string>();
@@ -111,7 +111,7 @@ namespace BåtklubbGladPirat
             return strArr;
         }
 
-        public List<string> ViewCompleteMembers()
+        public List<string> ViewCompleteMembers()//Visar medlemmar med deras båtar 
         {
             string[] lines = File.ReadAllLines(memberTextFile);
             List<string> strArr = new List<string>();
@@ -119,14 +119,14 @@ namespace BåtklubbGladPirat
             string[] numberOfBoats = File.ReadAllLines(boatTextFile);
             List<string> boats = new List<string>();
 
-            foreach (string memberLine in lines)
+            foreach (string memberLine in lines)//Loopar medlemmar
             {
-                foreach (string boatLine in numberOfBoats)
+                foreach (string boatLine in numberOfBoats)//Loopar båtarna och matchar dom med medlemmarna som äger båten
                 {
-                    if (memberLine.Substring(0, 6) == boatLine.Substring(0, 6))//Om memberID stämmer överens med memberID på en båt. blocka ut båtinfon
+                    if (memberLine.Substring(0, 6) == boatLine.Substring(0, 6))//Om memberID stämmer överens med memberID på en båt, plocka ut båtinfo
                     {
-                        string p = boatLine.Substring(7);
-                        boats.Add(p);
+                        string p = boatLine.Substring(7);//Visar båtar utan medlemsnummer 
+                        boats.Add(p);//Lägger till båtar i en lista 
                     }
                 }
                 strArr.Add(memberLine);//Lägger till medlem i en lista
@@ -136,7 +136,7 @@ namespace BåtklubbGladPirat
            return strArr;//Returnerar en lista med Medlemmar och deras tillhörande båtar
         }
 
-        public List<string> ViewAllboats()
+        public List<string> ViewAllboats()//Visar alla båtar som finns
         {
             string[] numberOfBoats = File.ReadAllLines(boatTextFile);
             List<string> boats = new List<string>();

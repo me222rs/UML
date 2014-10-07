@@ -220,7 +220,7 @@ namespace BåtklubbGladPirat
             
         }
 
-        private static void ViewAllMembers()
+        private static void ViewAllMembers()//visar alla medlemmar med deras båtar
         {
             Model model = new Model(memberTextFile);
             List<string> members = model.ViewCompleteMembers();
