@@ -9,15 +9,15 @@ namespace BåtklubbGladPirat
     class Program
     {
         private const string memberTextFile = "medlem.txt";
-        
+        private const string boatTextFile = "boat.txt";
+
+        public static string[] boatType = new string[] { "Segelbåt", "Motorseglare", "Motorbåt", "Kajak/Kanot", "Övrigt" };
 
         static void Main(string[] args)
         {
-            Model model = new Model(memberTextFile); 
-            //List<Recipe> myRecipeList = new List<Recipe>();
              do
              {
-                 switch (GetMenuChoice())           //Visar menyn
+                 switch (GetMenuChoice())//Visar menyn
                  {
                      case 0:
                          return;
@@ -48,13 +48,11 @@ namespace BåtklubbGladPirat
                      case 9:
                          EditBoat();
                          break;
-
-                         
                  }
                  ContinueOnKeyPressed();
              } while (true);
         }
-
+        
         private static void EditBoat() //Frågar vilken jävla båt du vill redigera
         {
             int count = 0;
@@ -74,7 +72,6 @@ namespace BåtklubbGladPirat
 
             Console.WriteLine("Fyll i de nya uppgifterna");
 
-            string[] boatType = new string[] { "Segelbåt", "Motorseglare", "Motorbåt", "Kajak/Kanot", "Övrigt" };
             int countBoatType = 0;
             Console.WriteLine("Vilken båttyp: ");
             foreach (string r in boatType)
@@ -97,11 +94,11 @@ namespace BåtklubbGladPirat
         private static void RemoveBoat()//Frågar vilken båt man vill ta bort
         {
             int count = 0;
-            Model model = new Model("boat.txt");
+            Model model = new Model(boatTextFile);
             List<string> boatList = model.ViewAllboats();
-            foreach (string r in boatList)
+            foreach (string line in boatList)
             {
-                Console.WriteLine("{0}: {1}", count, r); //lägger till radnummer framför
+                Console.WriteLine("{0}: {1}", count, line); //lägger till radnummer framför
                 count++;
             }
 
@@ -113,14 +110,12 @@ namespace BåtklubbGladPirat
 
         private static void AddBoat() 
         {
-            string[] boatType = new string[]{"Segelbåt", "Motorseglare", "Motorbåt", "Kajak/Kanot", "Övrigt"};
-
             int count = 0;
             Model model = new Model(memberTextFile);
-            List<string> memberList = model.ViewCompleteMembers();
-            foreach (string r in memberList)
+            List<string> memberList = model.ViewAllMembers();
+            foreach (string line in memberList)
             {
-                Console.WriteLine("{0}: {1}", count, r);
+                Console.WriteLine("{0}: {1}", count, line);
                 count++;
             }
 
@@ -131,9 +126,9 @@ namespace BåtklubbGladPirat
 
             int countBoatType = 0;
             Console.WriteLine("Vilken båttyp: ");
-            foreach (string r in boatType) 
+            foreach (string line in boatType) 
             {
-                Console.WriteLine("{0}: {1}", countBoatType, r);
+                Console.WriteLine("{0}: {1}", countBoatType, line);
                 countBoatType++;
             }
             int type = int.Parse(Console.ReadLine());
@@ -149,9 +144,9 @@ namespace BåtklubbGladPirat
             int count = 0;
             Model model = new Model(memberTextFile);
             List<string> memberList = model.ViewCompactListMembers();
-            foreach (string r in memberList)
+            foreach (string line in memberList)
             {
-                Console.WriteLine("{0}: {1}", count, r);
+                Console.WriteLine("{0}: {1}", count, line);
                 count++;
             }
 
@@ -168,9 +163,9 @@ namespace BåtklubbGladPirat
             int count = 0;
             Model model = new Model(memberTextFile);
             List<string> memberList = model.ViewAllMembers();
-            foreach (string r in memberList)
+            foreach (string line in memberList)
             {
-                Console.WriteLine("{0}: {1}", count, r);
+                Console.WriteLine("{0}: {1}", count, line);
                 count++;
             }
 
@@ -190,7 +185,6 @@ namespace BåtklubbGladPirat
             int personalID = int.Parse(Console.ReadLine());
 
             int memberID = int.Parse(memberList[member].Substring(0, 6));
-            //int memberID = 
             
             model.EditMember(member, memberList, name, personalID, memberID);
 
@@ -202,8 +196,9 @@ namespace BåtklubbGladPirat
             int count = 0;
             Model model = new Model(memberTextFile);
             List<string> memberList = model.ViewAllMembers();
-            foreach(string r in memberList){
-                Console.WriteLine("{0}: {1}", count, r); //lägger till radnummer framför
+            foreach (string line in memberList)
+            {
+                Console.WriteLine("{0}: {1}", count, line); //lägger till radnummer framför
                 count++;
             }
 
@@ -229,9 +224,9 @@ namespace BåtklubbGladPirat
         {
             Model model = new Model(memberTextFile);
             List<string> members = model.ViewCompleteMembers();
-            foreach (string r in members)
+            foreach (string line in members)
             {
-                Console.WriteLine(r);
+                Console.WriteLine(line);
             } 
         }
 
@@ -242,7 +237,6 @@ namespace BåtklubbGladPirat
 
             Console.Write("Personnummer: ");
             int personNummer = int.Parse(Console.ReadLine());
-
 
             Model model = new Model(memberTextFile);
             model.CreateMember(firstName, personNummer);
@@ -268,7 +262,6 @@ namespace BåtklubbGladPirat
             Console.BackgroundColor = ConsoleColor.DarkCyan;
             Console.WriteLine("=     Den glade piraten     =");
             Console.ResetColor();
-
             Console.WriteLine(" - Medlem -----------------------\n");
             Console.WriteLine(" 0. Avsluta.");
             Console.WriteLine(" 1. Lägg till medlem.");
@@ -281,15 +274,12 @@ namespace BåtklubbGladPirat
             Console.WriteLine(" 7. Registrera båt.\n");
             Console.WriteLine(" 8. Ta bort båt.\n");
             Console.WriteLine(" 9. Redigera båt.\n");
-
-
             Console.WriteLine(" ===============================\n");
             Console.WriteLine(" Ange menyval [0-9]:");
 
 
             do
             {
-
                 try
                 {
                     choice = int.Parse(Console.ReadLine());         //Läser in ett menyval 0-5 som användaren matar in
@@ -298,13 +288,11 @@ namespace BåtklubbGladPirat
                     {
                         throw new Exception();
                     }
-
                     else
                     {
                         break;
                     }
                 }
-
                 catch
                 {
                     Console.BackgroundColor = ConsoleColor.DarkRed;
@@ -314,11 +302,7 @@ namespace BåtklubbGladPirat
                 }
 
             } while (true);
-
             return choice;   //Returnar menyvalet
-
         }
-
-        public static object boat { get; set; }
     }
 }
