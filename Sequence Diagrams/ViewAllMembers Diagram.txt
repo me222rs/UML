@@ -1,0 +1,6 @@
+title ViewAllMembers Diagram
+
+User->"v:ViewAllMembers": Chooses
+"v:ViewAllMembers"->"m:ViewCompleteMembers": Create List
+"m:ViewCompleteMembers"->"v:ViewAllMembers": Return List
+

@@ -1,0 +1,15 @@
+title EditMember Diagram
+
+User->"v:EditMember": Chooses
+"v:EditMember"->"m:ViewAllMembers": Create List
+"m:ViewAllMembers"->"v:EditMember": Return List
+"v:EditMember"->"m:ViewCompleteMembers": Create List
+"m:ViewCompleteMembers"->"v:EditMember": Return List
+"v:EditMember"->"m:EditMember": Send new member
+"m:EditMember"->"m:DeleteMember": Remove old member
+note left of "m:DeleteMember"
+m:DeleteMember removes 
+old member and m:Edit 
+Member creates a new 
+with old memberID
+end note

@@ -1,0 +1,13 @@
+title ShowMember Diagram
+
+User->"v:ShowMember": Chooses
+"v:ShowMember"->"m:ViewCompactListMembers": Create List
+"m:ViewCompactListMembers"->"v:ShowMember": Return List
+"v:ShowMember"->"m:ViewCompleteMembers": Create List
+"m:ViewCompleteMembers"->"v:ShowMember": Return List
+note left of "v:ShowMember"
+v:ShowMember shows 
+1 member based on 
+which user wants
+to show
+end note

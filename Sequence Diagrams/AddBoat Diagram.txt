@@ -1,0 +1,6 @@
+title AddBoat Diagram
+
+User->"v:AddBoat": Chooses
+"v:AddBoat"->"m:ViewAllMembers": Create List
+"m:ViewAllMembers"->"v:AddBoat": Return List
+"v:AddBoat"->"m:AddBoat": Create Boat

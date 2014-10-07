@@ -1,0 +1,6 @@
+title RemoveBoat Diagram
+
+User->"v:RemoveBoat": Chooses
+"v:RemoveBoat"->"m:ViewAllboats": Create List
+"m:ViewAllboats"->"v:RemoveBoat": Return List
+"v:RemoveBoat"->"m:RemoveBoat": Remove Boat

@@ -1,0 +1,11 @@
+title Master Diagram
+
+User->CreateMember: Chooses
+User->ViewCompactListMembers: Chooses
+User->ViewAllMembers: Chooses
+User->DeleteMember: Chooses
+User->EditMember: Chooses
+User->ShowMember: Chooses
+User->AddBoat: Chooses
+User->RemoveBoat: Chooses
+User->EditBoat: Chooses

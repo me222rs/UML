@@ -1,0 +1,6 @@
+title ViewCompactListMembers Diagram
+
+User->"v:ViewCompactListMembers": Chooses
+"v:ViewCompactListMembers"->"m:ViewCompactListMembers": Create List
+"m:ViewCompactListMembers"->"v:ViewCompactListMembers": Return List
+

@@ -1,0 +1,13 @@
+title EditBoat Diagram
+
+User->"v:EditBoat": Chooses
+"v:EditBoat"->"m:ViewAllboats": Create List
+"m:ViewAllboats"->"v:EditBoat": Return List
+"v:EditBoat"->"m:EditBoat": Send new boat
+"m:EditBoat"->"m:RemoveBoat": Remove old boat
+note left of "m:RemoveBoat"
+m:RemoveBoat removes 
+old boat and m:EditBoat
+creates a new 
+with old memberID
+end note

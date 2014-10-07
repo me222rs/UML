@@ -1,0 +1,6 @@
+title DeleteMember Diagram
+
+User->"v:DeleteMember": Chooses
+"v:DeleteMember"->"m:ViewAllMembers": Create List
+"m:ViewAllMembers"->"v:DeleteMember": Return List
+"v:DeleteMember"->"m:DeleteMember": Deletes member

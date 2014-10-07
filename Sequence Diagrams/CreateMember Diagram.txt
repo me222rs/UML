@@ -1,0 +1,4 @@
+title CreateMember Diagram
+
+User->"v:CreateMember": Chooses
+"v:CreateMember"->"m:CreateMember": Create Member
