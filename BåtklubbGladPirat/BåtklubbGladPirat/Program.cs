@@ -45,14 +45,53 @@ namespace BåtklubbGladPirat
                      case 8:
                          RemoveBoat();
                          break;
-                     //case 9:
-                     //    EditBoat();
-                     //    break;
+                     case 9:
+                         EditBoat();
+                         break;
 
                          
                  }
                  ContinueOnKeyPressed();
              } while (true);
+        }
+
+        private static void EditBoat() //Frågar vilken jävla båt du vill redigera
+        {
+            int count = 0;
+            Model model = new Model(memberTextFile);
+            List<string> boatList = model.ViewAllboats();
+            foreach (string r in boatList)
+            {
+                Console.WriteLine("{0}: {1}", count, r);
+                count++;
+            }
+
+            Console.Write("Vilken båt vill du redigera?: ");
+            int boat = int.Parse(Console.ReadLine());
+
+            Console.Clear();
+            Console.WriteLine(boatList[boat]);
+
+            Console.WriteLine("Fyll i de nya uppgifterna");
+
+            string[] boatType = new string[] { "Segelbåt", "Motorseglare", "Motorbåt", "Kajak/Kanot", "Övrigt" };
+            int countBoatType = 0;
+            Console.WriteLine("Vilken båttyp: ");
+            foreach (string r in boatType)
+            {
+                Console.WriteLine("{0}: {1}", countBoatType, r);
+                countBoatType++;
+            }
+            int type = int.Parse(Console.ReadLine());
+
+            Console.Write("Ny längd: ");
+            int length = int.Parse(Console.ReadLine());
+
+            int memberID = int.Parse(boatList[boat].Substring(0, 6));
+
+            model.Editboat(boat, boatList, type, length, memberID);
+
+            Console.Write("SUCCESS");
         }
 
         private static void RemoveBoat()//Frågar vilken båt man vill ta bort

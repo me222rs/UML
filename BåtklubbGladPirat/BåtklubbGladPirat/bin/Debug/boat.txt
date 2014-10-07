@@ -1,1 +1,1 @@
-375808;Motorseglare;541;
+375808;Motorbåt;520;

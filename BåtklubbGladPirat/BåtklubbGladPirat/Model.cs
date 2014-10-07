@@ -191,25 +191,7 @@ namespace BåtklubbGladPirat
 
         public void AddBoat(int memberID, int type, int length) 
         {
-            string boatType = "";
-            switch(type)//Gör om båttypen till en sträng istället för nummer
-            {
-                case 0:
-                    boatType = "Segelbåt";
-                    break;
-                case 1:
-                    boatType = "Motorseglare";
-                    break;
-                case 2:
-                    boatType = "Motorbåt";
-                    break;
-                case 3:
-                    boatType = "Kajak/Kanot";
-                    break;
-                case 4:
-                    boatType = "Övrigt";
-                    break;
-            }
+            string boatType = BoatType(type);
 
             using (StreamWriter writer = new StreamWriter("boat.txt", true))
             {
@@ -228,6 +210,43 @@ namespace BåtklubbGladPirat
                 {
                     writer.WriteLine(boatList[i]);
                 }
+            }
+        }
+
+        public string BoatType(int type)//Gör om båttypen till en sträng istället för nummer
+        {
+            string boatType = "";
+            switch (type)
+            {
+                case 0:
+                    boatType = "Segelbåt";
+                    break;
+                case 1:
+                    boatType = "Motorseglare";
+                    break;
+                case 2:
+                    boatType = "Motorbåt";
+                    break;
+                case 3:
+                    boatType = "Kajak/Kanot";
+                    break;
+                case 4:
+                    boatType = "Övrigt";
+                    break;
+            }
+            return boatType;
+        }
+
+        public void Editboat(int boat, List<string> boatList, int type, int length, int memberID)
+        {
+            RemoveBoat(boat, boatList);
+            string boatType = BoatType(type);
+
+            using (StreamWriter writer = new StreamWriter("boat.txt", true))
+            {
+
+                writer.Write(memberID + ";" + boatType + ";" + length + ";" + "\n");
+
             }
         }
     }
