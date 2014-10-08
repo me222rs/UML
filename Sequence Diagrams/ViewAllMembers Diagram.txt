@@ -1,6 +1,8 @@
+Copy this link and paste code
+https://www.websequencediagrams.com/
+
 title ViewAllMembers Diagram
 
-User->"v:ViewAllMembers": Chooses
-"v:ViewAllMembers"->"m:ViewCompleteMembers": Create List
-"m:ViewCompleteMembers"->"v:ViewAllMembers": Return List
-
+User->"Program:ViewAllMembers": Chooses
+"Program:ViewAllMembers"->"MemberModel:ViewCompleteMembers": Create List
+"MemberModel:ViewCompleteMembers"->"Program:ViewAllMembers": Return List

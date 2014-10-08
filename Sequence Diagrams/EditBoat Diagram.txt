@@ -1,13 +1,16 @@
+Copy this link and paste code
+https://www.websequencediagrams.com/
+
 title EditBoat Diagram
 
-User->"v:EditBoat": Chooses
-"v:EditBoat"->"m:ViewAllboats": Create List
-"m:ViewAllboats"->"v:EditBoat": Return List
-"v:EditBoat"->"m:EditBoat": Send new boat
-"m:EditBoat"->"m:RemoveBoat": Remove old boat
-note left of "m:RemoveBoat"
-m:RemoveBoat removes 
-old boat and m:EditBoat
+User->"Program:EditBoat": Chooses
+"Program:EditBoat"->"MemberBoat:ViewAllboats": Create List
+"MemberBoat:ViewAllboats"->"Program:EditBoat": Return List
+"Program:EditBoat"->"MemberBoat:EditBoat": Send new boat
+"MemberBoat:EditBoat"->"MemberBoat:RemoveBoat": Remove old boat
+note left of "MemberBoat:RemoveBoat"
+MemberBoat:RemoveBoat removes 
+old boat, and MemberBoat:EditBoat
 creates a new 
 with old memberID
 end note

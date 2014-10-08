@@ -1,2 +1,5 @@
-﻿438497;Segelbåt;123;
-438497;Motorbåt;845;
+438497;Segelbåt;123;
+438497;Motorbåt;3000;
+593965;Kajak/Kanot;2154;
+469432;Segelbåt;2133;
+621527;Kajak/Kanot;2154;

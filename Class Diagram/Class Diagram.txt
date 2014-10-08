@@ -1,0 +1,5 @@
+Copy this link and paste code
+http://yuml.me/diagram/scruffy/class/draw
+
+[Program]-.->[MemberModel]
+[Program]-.->[BoatModel]

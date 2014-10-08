@@ -13,7 +13,7 @@ using System.Xml.Serialization;
 
 namespace BåtklubbGladPirat
 {
-    class Model
+    class MemberModel
     {
         private const string memberTextFile = "medlem.txt";
         private const string boatTextFile = "boat.txt";
@@ -34,7 +34,7 @@ namespace BåtklubbGladPirat
         }
 
        
-        public Model(string path) 
+        public MemberModel(string path) 
         {
             Path = path;        //initierar fältet _path så att det instansierade objektet innehåller en sökväg
         }
@@ -136,18 +136,6 @@ namespace BåtklubbGladPirat
            return strArr;//Returnerar en lista med Medlemmar och deras tillhörande båtar
         }
 
-        public List<string> ViewAllboats()//Visar alla båtar som finns
-        {
-            string[] numberOfBoats = File.ReadAllLines(boatTextFile);
-            List<string> boats = new List<string>();
-
-            foreach (string boatLine in numberOfBoats)
-                {
-                    boats.Add(boatLine);
-                }
-            return boats;
-        }
-
         public void DeleteMember(int member, List<string> memberList)//Tar bort medlem beroende på radnummer
         {
             memberList.RemoveAt(member);
@@ -169,62 +157,6 @@ namespace BåtklubbGladPirat
             using (StreamWriter writer = new StreamWriter(memberTextFile, true))
             {
                 writer.Write(memberID + " " + name + " ;" + personalID + ";" + "\n");
-            }
-        }
-
-        public void AddBoat(int memberID, int type, int length) 
-        {
-            using (StreamWriter writer = new StreamWriter(boatTextFile, true))
-            {
-                writer.Write(memberID + ";" + BoatType(type) + ";" + length + ";" + "\n");
-            }
-        }
-
-        public void RemoveBoat(int boat, List<string> boatList) 
-        {
-            boatList.RemoveAt(boat);
-            var lineCount = File.ReadLines(boatTextFile).Count();
-
-            using (StreamWriter writer = new StreamWriter(boatTextFile))
-            {
-                for (int i = 0; i < lineCount - 1; i++)
-                {
-                    writer.WriteLine(boatList[i]);
-                }
-            }
-        }
-
-        public string BoatType(int type)//Gör om båttypen till en sträng istället för nummer
-        {
-            string boatType = "";
-            switch (type)
-            {
-                case 0:
-                    boatType = "Segelbåt";
-                    break;
-                case 1:
-                    boatType = "Motorseglare";
-                    break;
-                case 2:
-                    boatType = "Motorbåt";
-                    break;
-                case 3:
-                    boatType = "Kajak/Kanot";
-                    break;
-                case 4:
-                    boatType = "Övrigt";
-                    break;
-            }
-            return boatType;
-        }
-
-        public void Editboat(int boat, List<string> boatList, int type, int length, int memberID)
-        {
-            RemoveBoat(boat, boatList);
-
-            using (StreamWriter writer = new StreamWriter(boatTextFile, true))
-            {
-                writer.Write(memberID + ";" + BoatType(type) + ";" + length + ";" + "\n");
             }
         }
 

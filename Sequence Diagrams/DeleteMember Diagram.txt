@@ -1,6 +1,9 @@
+Copy this link and paste code
+https://www.websequencediagrams.com/
+
 title DeleteMember Diagram
 
-User->"v:DeleteMember": Chooses
-"v:DeleteMember"->"m:ViewAllMembers": Create List
-"m:ViewAllMembers"->"v:DeleteMember": Return List
-"v:DeleteMember"->"m:DeleteMember": Deletes member
+User->"Program:DeleteMember": Chooses
+"Program:DeleteMember"->"MemberModel:ViewAllMembers": Create List
+"MemberModel:ViewAllMembers"->"Program:DeleteMember": Return List
+"Program:DeleteMember"->"MemberModel:DeleteMember": Deletes member

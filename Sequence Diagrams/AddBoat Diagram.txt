@@ -1,6 +1,9 @@
+Copy this link and paste code
+https://www.websequencediagrams.com/
+
 title AddBoat Diagram
 
-User->"v:AddBoat": Chooses
-"v:AddBoat"->"m:ViewAllMembers": Create List
-"m:ViewAllMembers"->"v:AddBoat": Return List
-"v:AddBoat"->"m:AddBoat": Create Boat
+User->"Program:AddBoat": Chooses
+"Program:AddBoat"->"MemberModel:ViewAllMembers": Create List
+"MemberModel:ViewAllMembers"->"Program:AddBoat": Return List
+"Program:AddBoat"->"BoatModel:AddBoat": Create Boat

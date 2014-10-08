@@ -1,6 +1,9 @@
+Copy this link and paste code
+https://www.websequencediagrams.com/
+
 title ViewCompactListMembers Diagram
 
-User->"v:ViewCompactListMembers": Chooses
-"v:ViewCompactListMembers"->"m:ViewCompactListMembers": Create List
-"m:ViewCompactListMembers"->"v:ViewCompactListMembers": Return List
+User->"Program:ViewCompactListMembers": Chooses
+"Program:ViewCompactListMembers"->"MemberModel:ViewCompactListMembers": Create List
+"MemberModel:ViewCompactListMembers"->"Program:ViewCompactListMembers": Return List
 

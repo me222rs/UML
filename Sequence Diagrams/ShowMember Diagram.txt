@@ -1,12 +1,15 @@
+Copy this link and paste code
+https://www.websequencediagrams.com/
+
 title ShowMember Diagram
 
-User->"v:ShowMember": Chooses
-"v:ShowMember"->"m:ViewCompactListMembers": Create List
-"m:ViewCompactListMembers"->"v:ShowMember": Return List
-"v:ShowMember"->"m:ViewCompleteMembers": Create List
-"m:ViewCompleteMembers"->"v:ShowMember": Return List
-note left of "v:ShowMember"
-v:ShowMember shows 
+User->"Program:ShowMember": Chooses
+"Program:ShowMember"->"MemberModel:ViewCompactListMembers": Create List
+"MemberModel:ViewCompactListMembers"->"Program:ShowMember": Return List
+"Program:ShowMember"->"MemberModel:ViewCompleteMembers": Create List
+"MemberModel:ViewCompleteMembers"->"Program:ShowMember": Return List
+note left of "Program:ShowMember"
+Program:ShowMember shows 
 1 member based on 
 which user wants
 to show

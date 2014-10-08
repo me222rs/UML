@@ -53,11 +53,11 @@ namespace BåtklubbGladPirat
              } while (true);
         }
         
-        private static void EditBoat() //Frågar vilken jävla båt du vill redigera
+        private static void EditBoat() //Frågar vilken båt du vill redigera
         {
             int count = 0;
-            Model model = new Model(memberTextFile);
-            List<string> boatList = model.ViewAllboats();
+            BoatModel BoatModel = new BoatModel(memberTextFile);
+            List<string> boatList = BoatModel.ViewAllboats();
             foreach (string r in boatList)
             {
                 Console.WriteLine("{0}: {1}", count, r);
@@ -86,7 +86,7 @@ namespace BåtklubbGladPirat
 
             int memberID = int.Parse(boatList[boat].Substring(0, 6));
 
-            model.Editboat(boat, boatList, type, length, memberID);
+            BoatModel.Editboat(boat, boatList, type, length, memberID);
 
             Console.Write("SUCCESS");
         }
@@ -94,24 +94,26 @@ namespace BåtklubbGladPirat
         private static void RemoveBoat()//Frågar vilken båt man vill ta bort
         {
             int count = 0;
-            Model model = new Model(boatTextFile);
-            List<string> boatList = model.ViewAllboats();
+            BoatModel BoatModel = new BoatModel(boatTextFile);
+            List<string> boatList = BoatModel.ViewAllboats();
             foreach (string line in boatList)
             {
                 Console.WriteLine("{0}: {1}", count, line); //lägger till radnummer framför
                 count++;
             }
 
-            Console.Write("Vilken båt vill du ta sänka?: ");
+            Console.Write("Vilken båt vill du ta bort?: ");
             int boat = int.Parse(Console.ReadLine());
 
-            model.RemoveBoat(boat, boatList);
+            BoatModel.RemoveBoat(boat, boatList);
         }
 
         private static void AddBoat() 
         {
+            BoatModel BoatModel = new BoatModel(boatTextFile);
+
             int count = 0;
-            Model model = new Model(memberTextFile);
+            MemberModel model = new MemberModel(memberTextFile);
             List<string> memberList = model.ViewAllMembers();
             foreach (string line in memberList)
             {
@@ -133,17 +135,18 @@ namespace BåtklubbGladPirat
             }
             int type = int.Parse(Console.ReadLine());
 
-            Console.Write("Hur lång är båtfan i CM?: ");
+            Console.Write("Hur lång är båten i CM?: ");
             int length = int.Parse(Console.ReadLine());
 
-            model.AddBoat(memberID, type, length);
+            
+            BoatModel.AddBoat(memberID, type, length);
         }
 
         private static void ShowMember()//Visa enskild medlem 
         {
             int count = 0;
-            Model model = new Model(memberTextFile);
-            List<string> memberList = model.ViewCompactListMembers();
+            MemberModel MemberModel = new MemberModel(memberTextFile);
+            List<string> memberList = MemberModel.ViewCompactListMembers();
             foreach (string line in memberList)
             {
                 Console.WriteLine("{0}: {1}", count, line);
@@ -154,14 +157,14 @@ namespace BåtklubbGladPirat
             int member = int.Parse(Console.ReadLine());
 
             Console.Clear();
-            List<string> oneMemberList = model.ViewCompleteMembers();
+            List<string> oneMemberList = MemberModel.ViewAllMembers();
             Console.WriteLine(oneMemberList[member]);
         }
 
-        private static void EditMember() //Frågar vilken jävla medlem du vill redigera
+        private static void EditMember() //Frågar vilken medlem du vill redigera
         {
             int count = 0;
-            Model model = new Model(memberTextFile);
+            MemberModel model = new MemberModel(memberTextFile);
             List<string> memberList = model.ViewAllMembers();
             foreach (string line in memberList)
             {
@@ -194,7 +197,7 @@ namespace BåtklubbGladPirat
         private static void DeleteMember()//Frågar vilken medlem man vill ta bort
         {
             int count = 0;
-            Model model = new Model(memberTextFile);
+            MemberModel model = new MemberModel(memberTextFile);
             List<string> memberList = model.ViewAllMembers();
             foreach (string line in memberList)
             {
@@ -211,7 +214,7 @@ namespace BåtklubbGladPirat
 
         private static void ViewCompactListMembers() 
         {
-            Model model = new Model(memberTextFile);
+            MemberModel model = new MemberModel(memberTextFile);
             List<string>members = model.ViewCompactListMembers();
             foreach (string r in members) 
             {
@@ -222,7 +225,7 @@ namespace BåtklubbGladPirat
 
         private static void ViewAllMembers()//visar alla medlemmar med deras båtar
         {
-            Model model = new Model(memberTextFile);
+            MemberModel model = new MemberModel(memberTextFile);
             List<string> members = model.ViewCompleteMembers();
             foreach (string line in members)
             {
@@ -238,7 +241,7 @@ namespace BåtklubbGladPirat
             Console.Write("Personnummer: ");
             int personNummer = int.Parse(Console.ReadLine());
 
-            Model model = new Model(memberTextFile);
+            MemberModel model = new MemberModel(memberTextFile);
             model.CreateMember(firstName, personNummer);
         }
 

@@ -1,14 +1,17 @@
+Copy this link and paste code
+https://www.websequencediagrams.com/
+
 title EditMember Diagram
 
-User->"v:EditMember": Chooses
-"v:EditMember"->"m:ViewAllMembers": Create List
-"m:ViewAllMembers"->"v:EditMember": Return List
-"v:EditMember"->"m:ViewCompleteMembers": Create List
-"m:ViewCompleteMembers"->"v:EditMember": Return List
-"v:EditMember"->"m:EditMember": Send new member
-"m:EditMember"->"m:DeleteMember": Remove old member
-note left of "m:DeleteMember"
-m:DeleteMember removes 
+User->"Program:EditMember": Chooses
+"Program:EditMember"->"MemberModel:ViewAllMembers": Create List
+"MemberModel:ViewAllMembers"->"Program:EditMember": Return List
+"Program:EditMember"->"MemberModel:ViewCompleteMembers": Create List
+"MemberModel:ViewCompleteMembers"->"Program:EditMember": Return List
+"Program:EditMember"->"MemberModel:EditMember": Send new member
+"MemberModel:EditMember"->"MemberModel:DeleteMember": Remove old member
+note left of "MemberModel:DeleteMember"
+MemberModel:DeleteMember removes 
 old member and m:Edit 
 Member creates a new 
 with old memberID
