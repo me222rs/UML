@@ -3,14 +3,18 @@ https://www.websequencediagrams.com/
 
 title EditBoat Diagram
 
-User->"Program:EditBoat": Chooses
-"Program:EditBoat"->"MemberBoat:ViewAllboats": Create List
-"MemberBoat:ViewAllboats"->"Program:EditBoat": Return List
-"Program:EditBoat"->"MemberBoat:EditBoat": Send new boat
-"MemberBoat:EditBoat"->"MemberBoat:RemoveBoat": Remove old boat
-note left of "MemberBoat:RemoveBoat"
-MemberBoat:RemoveBoat removes 
-old boat, and MemberBoat:EditBoat
+User->"Program": Chooses
+"Program"-->"BoatModel": Create BoatModel(memberTextFile)
+"BoatModel"-->"Program": Return BoatModel
+"Program"->"BoatModel": ViewAllBoats
+"BoatModel"-->"Program": Return
+
+"Program"->"BoatModel": EditBoat(boat, boatList, type, length, memberID)
+"BoatModel" -> "BoatModel": RemoveBoat(boat, boatList) 
+"BoatModel" -> "BoatModel": BoatType(type) 
+
+"BoatModel" --> "Program": Return 
+
 creates a new 
 with old memberID
 end note

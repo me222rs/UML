@@ -27,7 +27,7 @@ namespace BåtklubbGladPirat
             {
                 if (String.IsNullOrWhiteSpace(value))
                 {
-                    Console.WriteLine("Strängen är tom eller innehåller mellanslag!");
+                    throw new Exception();
                 }
                 _path = value;
             }
@@ -53,7 +53,7 @@ namespace BåtklubbGladPirat
             }
         }
 
-        private static string createUniqueNumber() 
+        public string createUniqueNumber() 
         {
             bool ifNumberExists;
             string ret = "";

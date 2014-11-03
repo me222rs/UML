@@ -1,9 +1,18 @@
 Copy this link and paste code
 https://www.websequencediagrams.com/
 
+
 title AddBoat Diagram
 
-User->"Program:AddBoat": Chooses
-"Program:AddBoat"->"MemberModel:ViewAllMembers": Create List
-"MemberModel:ViewAllMembers"->"Program:AddBoat": Return List
-"Program:AddBoat"->"BoatModel:AddBoat": Create Boat
+User->"Program": Chooses
+"Program"-->"BoatModel": Create BoatModel(boatTextFile)
+"BoatModel"-->"Program": Return new BoatModel()
+"Program"-->"MemberModel": Create MemberModel(memberTextFile)
+
+"MemberModel"-->"Program": Return new MemberModel()
+"Program"->"MemberModel": ViewAllMembers()
+"MemberModel"-->"Program": Return model.ViewAllmembers
+
+"Program"->"BoatModel": AddBoat(memberID, type, length)
+"BoatModel"->"BoatModel": BoatType(type)
+"BoatModel"-->"Program": Return 

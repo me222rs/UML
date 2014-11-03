@@ -24,7 +24,7 @@ namespace BåtklubbGladPirat
             {
                 if (String.IsNullOrWhiteSpace(value))
                 {
-                    Console.WriteLine("Strängen är tom eller innehåller mellanslag!");
+                    throw new Exception();
                 }
                 _path = value;
             }

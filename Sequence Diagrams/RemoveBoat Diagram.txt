@@ -3,7 +3,12 @@ https://www.websequencediagrams.com/
 
 title RemoveBoat Diagram
 
-User->"Program:RemoveBoat": Chooses
-"Program:RemoveBoat"->"BoatModel:ViewAllboats": Create List
-"BoatModel:ViewAllboats"->"Program:RemoveBoat": Return List
-"Program:RemoveBoat"->"BoatModel:RemoveBoat": Remove Boat
+User->"Program": Chooses
+"Program"-->"BoatModel": Create BoatModel
+"BoatModel"-->"Program": Return new BoatModel(boatTextFile)
+
+"Program"->"BoatModel": ViewAllBoats()
+"BoatModel"-->"Program": Return ViewAllBoats()
+
+"Program"->"BoatModel": RemoveBoat(boat, boatList)
+"BoatModel"-->"Program": Return

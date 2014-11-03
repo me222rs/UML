@@ -3,7 +3,10 @@ https://www.websequencediagrams.com/
 
 title ViewCompactListMembers Diagram
 
-User->"Program:ViewCompactListMembers": Chooses
-"Program:ViewCompactListMembers"->"MemberModel:ViewCompactListMembers": Create List
-"MemberModel:ViewCompactListMembers"->"Program:ViewCompactListMembers": Return List
+User->"Program": Chooses
+"Program"-->"MemberModel": Create new MemberModel(memberTextFile)
+"MemberModel"-->"Program": Return
 
+
+"Program"->"MemberModel": ViewCompactListMembers()
+"MemberModel"-->"Program": Return List with members

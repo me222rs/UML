@@ -15,45 +15,46 @@ namespace BåtklubbGladPirat
 
         static void Main(string[] args)
         {
+            Program program = new Program();
              do
              {
-                 switch (GetMenuChoice())//Visar menyn
+                 switch (program.GetMenuChoice())//Visar menyn
                  {
                      case 0:
                          return; //Avsluta 
                      case 1:
-                         CreateMember();//Skapa ny medlem
+                         program.CreateMember();//Skapa ny medlem
                          break;
                      case 2:
-                         ViewCompactListMembers(); //Visa medlemmar med hur många båtar de har
+                         program.ViewCompactListMembers(); //Visa medlemmar med hur många båtar de har
                          break;
                      case 3:
-                         ViewAllMembers(); // Visa alla medlemmar med deras båtar
+                         program.ViewAllMembers(); // Visa alla medlemmar med deras båtar
                          break;
                      case 4:
-                         DeleteMember();// Ta bort medlem
+                         program.DeleteMember();// Ta bort medlem
                          break;
                      case 5:
-                         EditMember();// Redigera medlem
+                         program.EditMember();// Redigera medlem
                          break;
                      case 6:
-                         ShowMember();//Visa en enstaka medlem med hans båtar
+                         program.ShowMember();//Visa en enstaka medlem med hans båtar
                          break;
                      case 7:
-                         AddBoat();//Lägger till en ny båt
+                         program.AddBoat();//Lägger till en ny båt
                          break;
                      case 8:
-                         RemoveBoat();//Tar bort en befintlig båt
+                         program.RemoveBoat();//Tar bort en befintlig båt
                          break;
                      case 9:
-                         EditBoat();//Redigerar en båt
+                         program.EditBoat();//Redigerar en båt
                          break;
                  }
-                 ContinueOnKeyPressed();
+                 program.ContinueOnKeyPressed();
              } while (true);
         }
-        
-        private static void EditBoat() //Frågar vilken båt du vill redigera
+        //***
+        private void EditBoat() //Frågar vilken båt du vill redigera
         {
             int count = 0;
             BoatModel BoatModel = new BoatModel(memberTextFile);
@@ -90,8 +91,8 @@ namespace BåtklubbGladPirat
 
             Console.Write("SUCCESS");
         }
-
-        private static void RemoveBoat()//Frågar vilken båt man vill ta bort
+        //***
+        private void RemoveBoat()//Frågar vilken båt man vill ta bort
         {
             int count = 0;
             BoatModel BoatModel = new BoatModel(boatTextFile);
@@ -107,8 +108,8 @@ namespace BåtklubbGladPirat
 
             BoatModel.RemoveBoat(boat, boatList);
         }
-
-        private static void AddBoat() 
+        //***
+        private void AddBoat() 
         {
             BoatModel BoatModel = new BoatModel(boatTextFile);
 
@@ -141,8 +142,8 @@ namespace BåtklubbGladPirat
             
             BoatModel.AddBoat(memberID, type, length);
         }
-
-        private static void ShowMember()//Visa enskild medlem 
+        //***
+        private void ShowMember()//Visa enskild medlem 
         {
             int count = 0;
             MemberModel MemberModel = new MemberModel(memberTextFile);
@@ -161,7 +162,7 @@ namespace BåtklubbGladPirat
             Console.WriteLine(oneMemberList[member]);
         }
 
-        private static void EditMember() //Frågar vilken medlem du vill redigera
+        private void EditMember() //Frågar vilken medlem du vill redigera
         {
             int count = 0;
             MemberModel model = new MemberModel(memberTextFile);
@@ -176,7 +177,7 @@ namespace BåtklubbGladPirat
             int member = int.Parse(Console.ReadLine());
 
             Console.Clear();
-            List<string> oneMemberList = model.ViewCompleteMembers();
+            List<string> oneMemberList = model.ViewAllMembers();
             Console.WriteLine(oneMemberList[member]);
 
             Console.WriteLine("Fyll i de nya uppgifterna");
@@ -193,8 +194,8 @@ namespace BåtklubbGladPirat
 
             Console.Write("SUCCESS");
         }
-
-        private static void DeleteMember()//Frågar vilken medlem man vill ta bort
+        //***
+        private void DeleteMember()//Frågar vilken medlem man vill ta bort
         {
             int count = 0;
             MemberModel model = new MemberModel(memberTextFile);
@@ -212,7 +213,7 @@ namespace BåtklubbGladPirat
             model.DeleteMember(member, memberList);
         }
 
-        private static void ViewCompactListMembers() 
+        private void ViewCompactListMembers() 
         {
             MemberModel model = new MemberModel(memberTextFile);
             List<string>members = model.ViewCompactListMembers();
@@ -223,7 +224,7 @@ namespace BåtklubbGladPirat
             
         }
 
-        private static void ViewAllMembers()//visar alla medlemmar med deras båtar
+        private void ViewAllMembers()//visar alla medlemmar med deras båtar
         {
             MemberModel model = new MemberModel(memberTextFile);
             List<string> members = model.ViewCompleteMembers();
@@ -233,19 +234,28 @@ namespace BåtklubbGladPirat
             } 
         }
 
-        private static void CreateMember() 
+        private void CreateMember() 
         {
             Console.Write("Förnamn: ");
             string firstName = Console.ReadLine();
 
-            Console.Write("Personnummer: ");
+            if(firstName == "" || firstName == null){
+                throw new Exception();
+            }
+
+            Console.Write("Personnummer(10 siffror): ");
             int personNummer = int.Parse(Console.ReadLine());
+            double numberOfDigits = Math.Floor(Math.Log10(personNummer) + 1);
+            if (personNummer == null || numberOfDigits != 10)
+            {
+                throw new Exception();
+            }
 
             MemberModel model = new MemberModel(memberTextFile);
             model.CreateMember(firstName, personNummer);
         }
 
-        private static void ContinueOnKeyPressed()
+        private void ContinueOnKeyPressed()
         {
             Console.ForegroundColor = ConsoleColor.White;
             Console.BackgroundColor = ConsoleColor.DarkBlue;
@@ -257,7 +267,7 @@ namespace BåtklubbGladPirat
             Console.CursorVisible = true;
         }
 
-        private static int GetMenuChoice()          //Skriver ut menyn
+        int GetMenuChoice()          //Skriver ut menyn
         {
             int choice = 0;
 

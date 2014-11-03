@@ -3,3 +3,4 @@
 593965;Kajak/Kanot;2154;
 469432;Segelbåt;2133;
 621527;Kajak/Kanot;2154;
+792351;Kajak/Kanot;123;

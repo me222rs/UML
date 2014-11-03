@@ -3,16 +3,15 @@ https://www.websequencediagrams.com/
 
 title EditMember Diagram
 
-User->"Program:EditMember": Chooses
-"Program:EditMember"->"MemberModel:ViewAllMembers": Create List
-"MemberModel:ViewAllMembers"->"Program:EditMember": Return List
-"Program:EditMember"->"MemberModel:ViewCompleteMembers": Create List
-"MemberModel:ViewCompleteMembers"->"Program:EditMember": Return List
-"Program:EditMember"->"MemberModel:EditMember": Send new member
-"MemberModel:EditMember"->"MemberModel:DeleteMember": Remove old member
-note left of "MemberModel:DeleteMember"
-MemberModel:DeleteMember removes 
-old member and m:Edit 
-Member creates a new 
-with old memberID
-end note
+User->"Program": Chooses
+"Program"-->"MemberModel": Create new MemberModel(memberTextFile)
+"MemberModel"-->"Program": Return MemberModel
+
+"Program"->"MemberModel": ViewAllMembers()
+"MemberModel"-->"Program": Return
+"Program"->"MemberModel": ViewAllMembers()
+"MemberModel"-->"Program": Return
+
+"Program"->"MemberModel": EditMember(member, memberList, name, personalID, memberID)
+"MemberModel"->"MemberModel": DeleteMember(member, memberList)
+"MemberModel"-->"Program": Return
