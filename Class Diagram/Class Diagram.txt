@@ -3,3 +3,4 @@ http://yuml.me/diagram/scruffy/class/draw
 
 [Program]-.->[MemberModel]
 [Program]-.->[BoatModel]
+[Program]-.->[Program]
