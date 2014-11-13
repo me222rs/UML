@@ -10,34 +10,53 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 
-namespace BåtklubbGladPirat
+namespace BåtklubbGladPirat.Model
 {
     class BoatModel
     {
         private const string boatTextFile = "boat.txt";
-
-        private string _path;
-        public string Path      //Validerar sökvägen så att den inte referarar till null, är tom eller bara innehåller whitespaces
+        
+        private string _memberPath;
+        public string MemberPath      //Validerar sökvägen så att den inte referarar till null, är tom eller bara innehåller whitespaces
         {
-            get { return _path; }
+            get { return _memberPath; }
             set
             {
                 if (String.IsNullOrWhiteSpace(value))
                 {
                     throw new Exception();
                 }
-                _path = value;
+                _memberPath = value;
             }
         }
 
-       
-        public BoatModel(string path) 
+        private string _boatPath;
+        public string BoatPath      //Validerar sökvägen så att den inte referarar till null, är tom eller bara innehåller whitespaces
         {
-            Path = path;        //initierar fältet _path så att det instansierade objektet innehåller en sökväg
+            get { return _boatPath; }
+            set
+            {
+                if (String.IsNullOrWhiteSpace(value))
+                {
+                    throw new Exception();
+                }
+                _boatPath = value;
+            }
+        }
+        MemberModel memberModel = new MemberModel(_memberPath);
+
+        public BoatModel(string boatPath, string memberPath) 
+        {
+            MemberPath = memberPath;
+            BoatPath = boatPath;//initierar fältet _path så att det instansierade objektet innehåller en sökväg
         }
 
-        public void AddBoat(int memberID, int type, int length)
+        public void AddBoat(int member, int type, int length)
         {
+            List<string> memberList = memberModel.ViewCompactListMembers();
+
+            int memberID = int.Parse(memberList[member].Substring(0, 6));
+
             using (StreamWriter writer = new StreamWriter(boatTextFile, true))
             {
                 writer.Write(memberID + ";" + BoatType(type) + ";" + length + ";" + "\n");

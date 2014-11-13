@@ -11,25 +11,26 @@ using System.Xml.Linq;
 using System.Xml.Serialization;
 
 
-namespace BåtklubbGladPirat
+namespace BåtklubbGladPirat.Model
 {
     class MemberModel
     {
-        private const string memberTextFile = "medlem.txt";
         private const string boatTextFile = "boat.txt";
         private const string unikTextFile = "UniktNummer.txt";
+        private List<string> memberList;
 
-        private string _path;
+
+        private string _memberPath;
         public string Path      //Validerar sökvägen så att den inte referarar till null, är tom eller bara innehåller whitespaces
         {
-            get { return _path; }
+            get { return _memberPath; }
             set
             {
                 if (String.IsNullOrWhiteSpace(value))
                 {
                     throw new Exception();
                 }
-                _path = value;
+                _memberPath = value;
             }
         }
 
@@ -37,11 +38,13 @@ namespace BåtklubbGladPirat
         public MemberModel(string path) 
         {
             Path = path;        //initierar fältet _path så att det instansierade objektet innehåller en sökväg
+            memberList = ViewAllMembers();
         }
 
-        public void CreateMember(string namn, int personnummer)
+        public void CreateMember(string name, int personNumber)
         {
-            using (StreamWriter writer = new StreamWriter(memberTextFile, true))
+
+            using (StreamWriter writer = new StreamWriter(_memberPath, true))
             {
                 string medlemsnummer = createUniqueNumber();
 
@@ -49,7 +52,7 @@ namespace BåtklubbGladPirat
                 {
                     writer2.WriteLine(medlemsnummer);
                 }
-                writer.Write(medlemsnummer + " " + namn + " ;" + personnummer  + ";" + "\n");
+                writer.Write(medlemsnummer + " " + name + " ;" + personNumber  + ";" + "\n");
             }
         }
 
@@ -78,7 +81,7 @@ namespace BåtklubbGladPirat
 
         public List<string> ViewCompactListMembers() //Visar en kompakt lista av medlemmarna och hur många båtar dom har var
         {
-            string[] lines = File.ReadAllLines(memberTextFile);
+            string[] lines = File.ReadAllLines(_memberPath);
             List<string>strArr = new List<string>();
 
             string[] numberOfBoats = File.ReadAllLines(boatTextFile);
@@ -101,7 +104,7 @@ namespace BåtklubbGladPirat
 
         public List<string> ViewAllMembers()//Visar alla medlemmar utan båtar
         {
-            string[] lines = File.ReadAllLines(memberTextFile);
+            string[] lines = File.ReadAllLines(_memberPath);
             List<string> strArr = new List<string>();
 
             foreach (string memberLine in lines)
@@ -113,7 +116,7 @@ namespace BåtklubbGladPirat
 
         public List<string> ViewCompleteMembers()//Visar medlemmar med deras båtar 
         {
-            string[] lines = File.ReadAllLines(memberTextFile);
+            string[] lines = File.ReadAllLines(_memberPath);
             List<string> strArr = new List<string>();
 
             string[] numberOfBoats = File.ReadAllLines(boatTextFile);
@@ -136,12 +139,12 @@ namespace BåtklubbGladPirat
            return strArr;//Returnerar en lista med Medlemmar och deras tillhörande båtar
         }
 
-        public void DeleteMember(int member, List<string> memberList)//Tar bort medlem beroende på radnummer
+        public void DeleteMember(int member)//Tar bort medlem beroende på radnummer
         {
             memberList.RemoveAt(member);
-            var lineCount = File.ReadLines(memberTextFile).Count();
+            var lineCount = File.ReadLines(_memberPath).Count();
 
-            using (StreamWriter writer = new StreamWriter(memberTextFile))
+            using (StreamWriter writer = new StreamWriter(_memberPath))
             {
                 for (int i = 0; i < lineCount -1; i++)
                 {
@@ -150,11 +153,13 @@ namespace BåtklubbGladPirat
             }
         }
 
-        public void EditMember(int member, List<string> memberList, string name, int personalID, int memberID) 
+        public void EditMember(int member, string name, int personalID) 
         {
-            DeleteMember(member, memberList);
+            DeleteMember(member);
 
-            using (StreamWriter writer = new StreamWriter(memberTextFile, true))
+            int memberID = int.Parse(memberList[member].Substring(0, 6));
+
+            using (StreamWriter writer = new StreamWriter(_memberPath, true))
             {
                 writer.Write(memberID + " " + name + " ;" + personalID + ";" + "\n");
             }

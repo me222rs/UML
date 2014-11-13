@@ -41,8 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BoatModel.cs" />
-    <Compile Include="MemberModel.cs" />
+    <Compile Include="View\BoatView.cs" />
+    <Compile Include="View\MemberView.cs" />
+    <Compile Include="View\MenuView.cs" />
+    <Compile Include="Model\BoatModel.cs" />
+    <Compile Include="Controller\MenuController.cs" />
+    <Compile Include="Model\MemberModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
