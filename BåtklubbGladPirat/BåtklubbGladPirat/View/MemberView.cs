@@ -9,7 +9,6 @@ namespace BåtklubbGladPirat.View
 {
     class MemberView
     {
-
         private string _fName;
         private int _personId;
         private int _memberNumber;

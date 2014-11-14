@@ -47,7 +47,6 @@ namespace BåtklubbGladPirat.Model
 
         public BoatModel() 
         {
-            
             memberModel = new MemberModel();
         }
 

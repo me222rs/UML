@@ -32,19 +32,11 @@ namespace BåtklubbGladPirat.Controller
 
             boatModel.SetMemberTextfile(memberTextFile);
             memberModel.setBoatTextfile(boatTextFile);
-        
         }
 
-
         public void MenuChoice(){
-
-
-
-            //memberTextFile = memberModel.getMemberTextFile;
-
             do
             {
-                
                 switch (mv.GetMenuChoice())//Visar menyn
                 {
                     case 0:
@@ -86,7 +78,5 @@ namespace BåtklubbGladPirat.Controller
                 mv.ContinueOnKeyPressed();
             } while (true);
         }
-
-
     }
 }

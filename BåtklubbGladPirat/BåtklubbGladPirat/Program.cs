@@ -14,8 +14,5 @@ namespace BåtklubbGladPirat
             MenuController mc = new MenuController();
             mc.MenuChoice();
         }
-
-
-   
     }
 }
