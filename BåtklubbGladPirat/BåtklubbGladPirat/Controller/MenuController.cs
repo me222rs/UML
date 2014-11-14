@@ -11,15 +11,37 @@ namespace BåtklubbGladPirat.Controller
 {
     class MenuController
     {
-        private const string memberTextFile = "./medlem.txt";
-        private const string boatTextFile = "./boat.txt";
+        private string memberTextFile = "";
+        private string boatTextFile = "";
+        MenuView mv;
+        BoatModel boatModel;
+        BoatView boatView;
+        MemberView memberView;
+        MemberModel memberModel;
+        
+        public MenuController() {
+
+            boatModel = new BoatModel();
+            memberModel = new MemberModel();
+            mv = new MenuView();
+            memberView = new MemberView();
+            boatView = new BoatView(boatModel.getTypes);
+            
+            boatTextFile = boatModel.getBoatTextFile;
+            memberTextFile = memberModel.getMemberTextFile;
+
+            boatModel.SetMemberTextfile(memberTextFile);
+            memberModel.setBoatTextfile(boatTextFile);
+        
+        }
+
+
         public void MenuChoice(){
 
-            MenuView mv = new MenuView();
-            MemberView memberView = new MemberView();
-            MemberModel memberModel = new MemberModel(memberTextFile);
-            BoatView boatView = new BoatView();
-            BoatModel boatModel = new BoatModel(boatTextFile, memberTextFile);
+
+
+            //memberTextFile = memberModel.getMemberTextFile;
+
             do
             {
                 
@@ -50,14 +72,16 @@ namespace BåtklubbGladPirat.Controller
                         break;
                     case 7:
                         boatView.AddBoat(memberModel.ViewAllMembers());//Lägger till en ny båt
-                        boatModel.AddBoat(memberView.getMemberNumber(), boatView.getType(), boatView.getLength());
+                        boatModel.AddBoat(boatView.getBoatNumber(), boatView.getType(), boatView.getLength());
                         break;
-                    //case 8:
-                    //    program.RemoveBoat();//Tar bort en befintlig båt
-                    //    break;
-                    //case 9:
-                    //    program.EditBoat();//Redigerar en båt
-                    //    break;
+                    case 8:
+                        boatView.RemoveBoat(boatModel.ViewAllboats());//Tar bort en befintlig båt
+                        boatModel.RemoveBoat(boatView.getBoatNumber());
+                        break;
+                    case 9:
+                        boatView.EditBoat(boatModel.ViewAllboats());//Redigerar en båt
+                        boatModel.Editboat(boatView.getBoatNumber(), boatView.getType(), boatView.getLength());
+                        break;
                 }
                 mv.ContinueOnKeyPressed();
             } while (true);

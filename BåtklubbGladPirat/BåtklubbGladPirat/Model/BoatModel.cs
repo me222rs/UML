@@ -14,8 +14,22 @@ namespace BåtklubbGladPirat.Model
 {
     class BoatModel
     {
-        private const string boatTextFile = "boat.txt";
-        
+        MemberModel memberModel;
+
+        public static string[] m_boatType = new string[] { "Segelbåt", "Motorseglare", "Motorbåt", "Kajak/Kanot", "Övrigt" };
+
+        private string _boatPath = "./boat.txt";
+        public string getBoatTextFile {
+            get { return _boatPath; }
+        }
+
+        public string[] getTypes { 
+            get{
+                return m_boatType;
+            }
+            
+        }
+
         private string _memberPath;
         public string MemberPath      //Validerar sökvägen så att den inte referarar till null, är tom eller bara innehåller whitespaces
         {
@@ -30,25 +44,16 @@ namespace BåtklubbGladPirat.Model
             }
         }
 
-        private string _boatPath;
-        public string BoatPath      //Validerar sökvägen så att den inte referarar till null, är tom eller bara innehåller whitespaces
-        {
-            get { return _boatPath; }
-            set
-            {
-                if (String.IsNullOrWhiteSpace(value))
-                {
-                    throw new Exception();
-                }
-                _boatPath = value;
-            }
-        }
-        MemberModel memberModel = new MemberModel(_memberPath);
 
-        public BoatModel(string boatPath, string memberPath) 
+        public BoatModel() 
+        {
+            
+            memberModel = new MemberModel();
+        }
+
+        public void SetMemberTextfile(string memberPath)
         {
             MemberPath = memberPath;
-            BoatPath = boatPath;//initierar fältet _path så att det instansierade objektet innehåller en sökväg
         }
 
         public void AddBoat(int member, int type, int length)
@@ -57,18 +62,20 @@ namespace BåtklubbGladPirat.Model
 
             int memberID = int.Parse(memberList[member].Substring(0, 6));
 
-            using (StreamWriter writer = new StreamWriter(boatTextFile, true))
+            using (StreamWriter writer = new StreamWriter(_boatPath, true))
             {
                 writer.Write(memberID + ";" + BoatType(type) + ";" + length + ";" + "\n");
             }
         }
 
-        public void RemoveBoat(int boat, List<string> boatList)
+        public void RemoveBoat(int boat)
         {
-            boatList.RemoveAt(boat);
-            var lineCount = File.ReadLines(boatTextFile).Count();
+            List<string> boatList = ViewAllboats();
 
-            using (StreamWriter writer = new StreamWriter(boatTextFile))
+            boatList.RemoveAt(boat);
+            var lineCount = File.ReadLines(_boatPath).Count();
+
+            using (StreamWriter writer = new StreamWriter(_boatPath))
             {
                 for (int i = 0; i < lineCount - 1; i++)
                 {
@@ -83,29 +90,33 @@ namespace BåtklubbGladPirat.Model
             switch (type)
             {
                 case 0:
-                    boatType = "Segelbåt";
+                    boatType = getTypes[0];
                     break;
                 case 1:
-                    boatType = "Motorseglare";
+                    boatType = getTypes[1];
                     break;
                 case 2:
-                    boatType = "Motorbåt";
+                    boatType = getTypes[2];
                     break;
                 case 3:
-                    boatType = "Kajak/Kanot";
+                    boatType = getTypes[3];
                     break;
                 case 4:
-                    boatType = "Övrigt";
+                    boatType = getTypes[4];
                     break;
             }
             return boatType;
         }
 
-        public void Editboat(int boat, List<string> boatList, int type, int length, int memberID)
+        public void Editboat(int boat, int type, int length)
         {
-            RemoveBoat(boat, boatList);
+            List<string> boatList = ViewAllboats();
 
-            using (StreamWriter writer = new StreamWriter(boatTextFile, true))
+            int memberID = int.Parse(boatList[boat].Substring(0, 6));
+
+            RemoveBoat(boat);
+
+            using (StreamWriter writer = new StreamWriter(_boatPath, true))
             {
                 writer.Write(memberID + ";" + BoatType(type) + ";" + length + ";" + "\n");
             }
@@ -113,7 +124,7 @@ namespace BåtklubbGladPirat.Model
 
         public List<string> ViewAllboats()//Visar alla båtar som finns
         {
-            string[] numberOfBoats = File.ReadAllLines(boatTextFile);
+            string[] numberOfBoats = File.ReadAllLines(_boatPath);
             List<string> boats = new List<string>();
 
             foreach (string boatLine in numberOfBoats)

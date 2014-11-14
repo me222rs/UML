@@ -9,12 +9,11 @@ namespace BåtklubbGladPirat.View
 {
     class BoatView
     {
-        private const string boatTextFile = "./boat.txt";
-        private const string memberTextFile = "./medlem.txt";
-        public static string[] boatType = new string[] { "Segelbåt", "Motorseglare", "Motorbåt", "Kajak/Kanot", "Övrigt" };
+        public static string[] m_boatType;
 
         private int _type;
         private int _length;
+        private int _boatNumber;
 
         public int getLength()
         {
@@ -26,13 +25,21 @@ namespace BåtklubbGladPirat.View
             return _type;
         }
 
-        MemberView memberView = new MemberView();
+        public int getBoatNumber()
+        {
+            return _boatNumber;
+        }
 
-        private void EditBoat() //Frågar vilken båt du vill redigera
+
+        public BoatView(string[]boatType) { 
+          m_boatType = boatType; 
+            
+        
+        }
+
+        public void EditBoat(List<string> boatList) //Frågar vilken båt du vill redigera
         {
             int count = 0;
-            BoatModel BoatModel = new BoatModel(memberTextFile);
-            List<string> boatList = BoatModel.ViewAllboats();
             foreach (string r in boatList)
             {
                 Console.WriteLine("{0}: {1}", count, r);
@@ -40,37 +47,30 @@ namespace BåtklubbGladPirat.View
             }
 
             Console.Write("Vilken båt vill du redigera?: ");
-            int boat = int.Parse(Console.ReadLine());
+            _boatNumber = int.Parse(Console.ReadLine());
 
             Console.Clear();
-            Console.WriteLine(boatList[boat]);
+            Console.WriteLine(boatList[_boatNumber]);
 
             Console.WriteLine("Fyll i de nya uppgifterna");
 
             int countBoatType = 0;
             Console.WriteLine("Vilken båttyp: ");
-            foreach (string r in boatType)
+            foreach (string r in m_boatType)
             {
                 Console.WriteLine("{0}: {1}", countBoatType, r);
                 countBoatType++;
             }
-            int type = int.Parse(Console.ReadLine());
+            _type = int.Parse(Console.ReadLine());
 
             Console.Write("Ny längd: ");
-            int length = int.Parse(Console.ReadLine());
-
-            int memberID = int.Parse(boatList[boat].Substring(0, 6));
-
-            BoatModel.Editboat(boat, boatList, type, length, memberID);
-
-            Console.Write("SUCCESS");
+            _length = int.Parse(Console.ReadLine());
         }
         //***
-        private void RemoveBoat()//Frågar vilken båt man vill ta bort
+        public void RemoveBoat(List<string> boatList)//Frågar vilken båt man vill ta bort
         {
             int count = 0;
-            BoatModel BoatModel = new BoatModel(boatTextFile);
-            List<string> boatList = BoatModel.ViewAllboats();
+            
             foreach (string line in boatList)
             {
                 Console.WriteLine("{0}: {1}", count, line); //lägger till radnummer framför
@@ -78,9 +78,7 @@ namespace BåtklubbGladPirat.View
             }
 
             Console.Write("Vilken båt vill du ta bort?: ");
-            int boat = int.Parse(Console.ReadLine());
-
-            BoatModel.RemoveBoat(boat, boatList);
+            _boatNumber = int.Parse(Console.ReadLine());
         }
         //***
         public void AddBoat(List<string> memberList)
@@ -93,11 +91,11 @@ namespace BåtklubbGladPirat.View
             }
 
             Console.Write("Lägga till en båt på vem?: ");
-            memberView.setMemberNumber(int.Parse(Console.ReadLine()));
+            _boatNumber = int.Parse(Console.ReadLine());
 
             int countBoatType = 0;
             Console.WriteLine("Vilken båttyp: ");
-            foreach (string line in boatType)
+            foreach (string line in m_boatType)
             {
                 Console.WriteLine("{0}: {1}", countBoatType, line);
                 countBoatType++;

@@ -9,7 +9,6 @@ namespace BåtklubbGladPirat.View
 {
     class MemberView
     {
-        private const string memberTextFile = "~/medlem.txt";
 
         private string _fName;
         private int _personId;
@@ -28,10 +27,6 @@ namespace BåtklubbGladPirat.View
         public int getMemberNumber() 
         {
             return _memberNumber;
-        }
-        public void setMemberNumber(int memberNumber) 
-        {
-            _memberNumber = memberNumber;
         }
 
         public void ShowMember(List<string> compactMemberList, List<string> viewAllMemberList)//Visa enskild medlem 
@@ -83,7 +78,7 @@ namespace BåtklubbGladPirat.View
                 count++;
             }
 
-            Console.Write("Vilken medlem vill du döda?: ");
+            Console.Write("Vilken medlem vill du ta bort?: ");
             _memberNumber = int.Parse(Console.ReadLine());
         }
 

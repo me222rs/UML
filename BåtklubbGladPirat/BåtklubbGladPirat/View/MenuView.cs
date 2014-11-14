@@ -46,7 +46,7 @@ namespace BåtklubbGladPirat.View
             {
                 try
                 {
-                    choice = int.Parse(Console.ReadLine());         //Läser in ett menyval 0-5 som användaren matar in
+                    choice = int.Parse(Console.ReadLine());         //Läser in ett menyval 0-9 som användaren matar in
 
                     if (choice > 9 || choice < 0)           //Kastar undantag om det inte är inom intervallet
                     {

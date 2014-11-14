@@ -15,30 +15,39 @@ namespace BåtklubbGladPirat.Model
 {
     class MemberModel
     {
-        private const string boatTextFile = "boat.txt";
         private const string unikTextFile = "UniktNummer.txt";
+       
         private List<string> memberList;
 
-
-        private string _memberPath;
-        public string Path      //Validerar sökvägen så att den inte referarar till null, är tom eller bara innehåller whitespaces
-        {
+        private const string _memberPath = "./medlem.txt";
+        public string getMemberTextFile {
             get { return _memberPath; }
+        }
+
+        private string _boatPath;
+        public string BoatPath      //Validerar sökvägen så att den inte referarar till null, är tom eller bara innehåller whitespaces
+        {
+            get { return _boatPath; }
             set
             {
                 if (String.IsNullOrWhiteSpace(value))
                 {
                     throw new Exception();
                 }
-                _memberPath = value;
+                _boatPath = value;
             }
         }
 
        
-        public MemberModel(string path) 
+        public MemberModel() 
         {
-            Path = path;        //initierar fältet _path så att det instansierade objektet innehåller en sökväg
+            
             memberList = ViewAllMembers();
+        }
+
+        public void setBoatTextfile(string boatPath)
+        {
+            BoatPath = boatPath;
         }
 
         public void CreateMember(string name, int personNumber)
@@ -61,7 +70,7 @@ namespace BåtklubbGladPirat.Model
             bool ifNumberExists;
             string ret = "";
 
-            do//Om ett nummer redan finns, ge hen ett nytt utan att visa några errors
+            do//Om ett nummer redan finns, ge användaren ett nytt utan att visa några errors
             {
                 int uniqueNumber;
                 Random random = new Random();
@@ -84,7 +93,7 @@ namespace BåtklubbGladPirat.Model
             string[] lines = File.ReadAllLines(_memberPath);
             List<string>strArr = new List<string>();
 
-            string[] numberOfBoats = File.ReadAllLines(boatTextFile);
+            string[] numberOfBoats = File.ReadAllLines(_boatPath);
 
             foreach (string memberLine in lines)
             {
@@ -119,7 +128,7 @@ namespace BåtklubbGladPirat.Model
             string[] lines = File.ReadAllLines(_memberPath);
             List<string> strArr = new List<string>();
 
-            string[] numberOfBoats = File.ReadAllLines(boatTextFile);
+            string[] numberOfBoats = File.ReadAllLines(_boatPath);
             List<string> boats = new List<string>();
 
             foreach (string memberLine in lines)//Loopar medlemmar
@@ -155,15 +164,14 @@ namespace BåtklubbGladPirat.Model
 
         public void EditMember(int member, string name, int personalID) 
         {
-            DeleteMember(member);
-
             int memberID = int.Parse(memberList[member].Substring(0, 6));
-
+            
+            DeleteMember(member);
+                      
             using (StreamWriter writer = new StreamWriter(_memberPath, true))
             {
                 writer.Write(memberID + " " + name + " ;" + personalID + ";" + "\n");
             }
         }
-
     }
 }
