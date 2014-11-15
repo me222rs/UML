@@ -12,29 +12,31 @@ namespace BåtklubbGladPirat.Controller
     class MenuController
     {
         private string memberTextFile = "";
-        private string boatTextFile = "";
+
         MenuView mv;
         BoatModel boatModel;
         BoatView boatView;
         MemberView memberView;
         MemberModel memberModel;
-        
-        public MenuController() {
+
+        public MenuController()
+        {
 
             boatModel = new BoatModel();
             memberModel = new MemberModel();
             mv = new MenuView();
             memberView = new MemberView();
             boatView = new BoatView(boatModel.getTypes);
-            
-            boatTextFile = boatModel.getBoatTextFile;
+
+
             memberTextFile = memberModel.getMemberTextFile;
 
             boatModel.SetMemberTextfile(memberTextFile);
-            memberModel.setBoatTextfile(boatTextFile);
+
         }
 
-        public void MenuChoice(){
+        public void MenuChoice()
+        {
             do
             {
                 switch (mv.GetMenuChoice())//Visar menyn

@@ -1,5 +1,1 @@
-121350;Kajak/Kanot;321;
-469432;Kajak/Kanot;321;
-554970;Kajak/Kanot;345345;
-554970;Övrigt;5555;
-273030;Kajak/Kanot;123;
+943208;Motorbåt;123;

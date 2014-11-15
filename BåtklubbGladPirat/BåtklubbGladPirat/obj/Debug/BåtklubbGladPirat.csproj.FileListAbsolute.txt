@@ -3,3 +3,9 @@ C:\Users\me222rs\Documents\GitHub\UML\BåtklubbGladPirat\BåtklubbGladPirat\bin\
 C:\Users\me222rs\Documents\GitHub\UML\BåtklubbGladPirat\BåtklubbGladPirat\bin\Debug\BåtklubbGladPirat.pdb
 C:\Users\me222rs\Documents\GitHub\UML\BåtklubbGladPirat\BåtklubbGladPirat\obj\Debug\BåtklubbGladPirat.exe
 C:\Users\me222rs\Documents\GitHub\UML\BåtklubbGladPirat\BåtklubbGladPirat\obj\Debug\BåtklubbGladPirat.pdb
+C:\Users\Mikael\Documents\GitHub\UML\BåtklubbGladPirat\BåtklubbGladPirat\bin\Debug\BåtklubbGladPirat.exe.config
+C:\Users\Mikael\Documents\GitHub\UML\BåtklubbGladPirat\BåtklubbGladPirat\obj\Debug\BåtklubbGladPirat.exe
+C:\Users\Mikael\Documents\GitHub\UML\BåtklubbGladPirat\BåtklubbGladPirat\obj\Debug\BåtklubbGladPirat.pdb
+C:\Users\Mikael\Documents\GitHub\UML\BåtklubbGladPirat\BåtklubbGladPirat\bin\Debug\BåtklubbGladPirat.exe
+C:\Users\Mikael\Documents\GitHub\UML\BåtklubbGladPirat\BåtklubbGladPirat\bin\Debug\BåtklubbGladPirat.pdb
+C:\Users\Mikael\Documents\GitHub\UML\BåtklubbGladPirat\BåtklubbGladPirat\obj\Debug\BåtklubbGladPirat.csprojResolveAssemblyReference.cache

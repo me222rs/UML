@@ -16,39 +16,28 @@ namespace BåtklubbGladPirat.Model
     class MemberModel
     {
         private const string unikTextFile = "UniktNummer.txt";
-       
+
         private List<string> memberList;
 
         private const string _memberPath = "./medlem.txt";
-        public string getMemberTextFile {
+        private const string _boatPath = "./boat.txt";
+
+
+
+        public string getMemberTextFile
+        {
             get { return _memberPath; }
         }
 
-        private string _boatPath;
-        public string BoatPath      //Validerar sökvägen så att den inte referarar till null, är tom eller bara innehåller whitespaces
-        {
-            get { return _boatPath; }
-            set
-            {
-                if (String.IsNullOrWhiteSpace(value))
-                {
-                    throw new Exception();
-                }
-                _boatPath = value;
-            }
-        }
 
-       
-        public MemberModel() 
+
+
+        public MemberModel()
         {
-            
+
             memberList = ViewAllMembers();
         }
 
-        public void setBoatTextfile(string boatPath)
-        {
-            BoatPath = boatPath;
-        }
 
         public void CreateMember(string name, int personNumber)
         {
@@ -61,11 +50,11 @@ namespace BåtklubbGladPirat.Model
                 {
                     writer2.WriteLine(medlemsnummer);
                 }
-                writer.Write(medlemsnummer + " " + name + " ;" + personNumber  + ";" + "\n");
+                writer.Write(medlemsnummer + " " + name + " ;" + personNumber + ";" + "\n");
             }
         }
 
-        public string createUniqueNumber() 
+        public string createUniqueNumber()
         {
             bool ifNumberExists;
             string ret = "";
@@ -80,10 +69,10 @@ namespace BåtklubbGladPirat.Model
                 string[] lines = File.ReadAllLines(unikTextFile);
                 ifNumberExists = false;
                 if (lines.Contains(ret))
-                    {
-                        ifNumberExists = true;
-                    }
-            } while(ifNumberExists == true);
+                {
+                    ifNumberExists = true;
+                }
+            } while (ifNumberExists == true);
 
             return ret;
         }
@@ -91,14 +80,14 @@ namespace BåtklubbGladPirat.Model
         public List<string> ViewCompactListMembers() //Visar en kompakt lista av medlemmarna och hur många båtar dom har var
         {
             string[] lines = File.ReadAllLines(_memberPath);
-            List<string>strArr = new List<string>();
+            List<string> strArr = new List<string>();
 
             string[] numberOfBoats = File.ReadAllLines(_boatPath);
 
             foreach (string memberLine in lines)
             {
                 int count = 0;
-                foreach (string boatLine in numberOfBoats) 
+                foreach (string boatLine in numberOfBoats)
                 {
                     if (memberLine.Substring(0, 6) == boatLine.Substring(0, 6))//Kollar om medlemsnummer i en rad är lika med båtars medlemsnummer
                     {
@@ -145,7 +134,7 @@ namespace BåtklubbGladPirat.Model
                 strArr.AddRange(boats);//Lägger till alla båtar som tillhör rätt medlem
                 boats.Clear();//rensar båt listan för att kunna återanvända vid nästa medlem
             }
-           return strArr;//Returnerar en lista med Medlemmar och deras tillhörande båtar
+            return strArr;//Returnerar en lista med Medlemmar och deras tillhörande båtar
         }
 
         public void DeleteMember(int member)//Tar bort medlem beroende på radnummer
@@ -155,19 +144,19 @@ namespace BåtklubbGladPirat.Model
 
             using (StreamWriter writer = new StreamWriter(_memberPath))
             {
-                for (int i = 0; i < lineCount -1; i++)
+                for (int i = 0; i < lineCount - 1; i++)
                 {
                     writer.WriteLine(memberList[i]);
                 }
             }
         }
 
-        public void EditMember(int member, string name, int personalID) 
+        public void EditMember(int member, string name, int personalID)
         {
             int memberID = int.Parse(memberList[member].Substring(0, 6));
-            
+
             DeleteMember(member);
-                      
+
             using (StreamWriter writer = new StreamWriter(_memberPath, true))
             {
                 writer.Write(memberID + " " + name + " ;" + personalID + ";" + "\n");
