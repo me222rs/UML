@@ -26,12 +26,12 @@ namespace BåtklubbGladPirat.Controller
             memberModel = new MemberModel();
             mv = new MenuView();
             memberView = new MemberView();
-            boatView = new BoatView(boatModel.getTypes);
+            boatView = new BoatView();
 
 
-            memberTextFile = memberModel.getMemberTextFile;
+            //memberTextFile = memberModel.getMemberTextFile;
 
-            boatModel.SetMemberTextfile(memberTextFile);
+            //boatModel.SetMemberTextfile(memberTextFile);
 
         }
 
@@ -66,7 +66,7 @@ namespace BåtklubbGladPirat.Controller
                         break;
                     case 7:
                         boatView.AddBoat(memberModel.ViewAllMembers());//Lägger till en ny båt
-                        boatModel.AddBoat(boatView.getBoatNumber(), boatView.getType(), boatView.getLength());
+                        boatModel.AddBoat(boatView.getBoatNumber(), boatView.getSelectedBoatType(), boatView.getLength());
                         break;
                     case 8:
                         boatView.RemoveBoat(boatModel.ViewAllboats());//Tar bort en befintlig båt
@@ -74,7 +74,7 @@ namespace BåtklubbGladPirat.Controller
                         break;
                     case 9:
                         boatView.EditBoat(boatModel.ViewAllboats());//Redigerar en båt
-                        boatModel.Editboat(boatView.getBoatNumber(), boatView.getType(), boatView.getLength());
+                        boatModel.Editboat(boatView.getBoatNumber(), boatView.getSelectedBoatType(), boatView.getLength());
                         break;
                 }
                 mv.ContinueOnKeyPressed();

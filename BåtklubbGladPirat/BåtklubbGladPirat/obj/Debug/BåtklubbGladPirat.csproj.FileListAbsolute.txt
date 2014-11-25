@@ -9,3 +9,4 @@ C:\Users\Mikael\Documents\GitHub\UML\BåtklubbGladPirat\BåtklubbGladPirat\obj\D
 C:\Users\Mikael\Documents\GitHub\UML\BåtklubbGladPirat\BåtklubbGladPirat\bin\Debug\BåtklubbGladPirat.exe
 C:\Users\Mikael\Documents\GitHub\UML\BåtklubbGladPirat\BåtklubbGladPirat\bin\Debug\BåtklubbGladPirat.pdb
 C:\Users\Mikael\Documents\GitHub\UML\BåtklubbGladPirat\BåtklubbGladPirat\obj\Debug\BåtklubbGladPirat.csprojResolveAssemblyReference.cache
+C:\Users\me222rs\Documents\GitHub\UML\BåtklubbGladPirat\BåtklubbGladPirat\obj\Debug\BåtklubbGladPirat.csprojResolveAssemblyReference.cache

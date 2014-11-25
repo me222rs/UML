@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,32 +10,24 @@ namespace BåtklubbGladPirat.View
 {
     class BoatView
     {
-        public static string[] m_boatType;
-
         private int _type;
         private int _length;
         private int _boatNumber;
+        private BoatTypes selectedBoatType;
 
         public int getLength()
         {
             return _length;
         }
 
-        public int getType() 
+        public BoatTypes getSelectedBoatType() 
         {
-            return _type;
+            return selectedBoatType;
         }
 
         public int getBoatNumber()
         {
             return _boatNumber;
-        }
-
-
-        public BoatView(string[]boatType) { 
-          m_boatType = boatType; 
-            
-        
         }
 
         public void EditBoat(List<string> boatList) //Frågar vilken båt du vill redigera
@@ -56,13 +49,14 @@ namespace BåtklubbGladPirat.View
 
             int countBoatType = 0;
             Console.WriteLine("Vilken båttyp: ");
-            foreach (string r in m_boatType)
+
+            var values = Enum.GetValues(typeof(BoatTypes));
+            foreach (BoatTypes r in values)
             {
                 Console.WriteLine("{0}: {1}", countBoatType, r);
                 countBoatType++;
             }
-            _type = int.Parse(Console.ReadLine());
-
+            selectedBoatType = (BoatTypes) int.Parse(Console.ReadLine());
             Console.Write("Ny längd: ");
             _length = int.Parse(Console.ReadLine());
         }
@@ -95,13 +89,13 @@ namespace BåtklubbGladPirat.View
 
             int countBoatType = 0;
             Console.WriteLine("Vilken båttyp: ");
-            foreach (string line in m_boatType)
+            var values = Enum.GetValues(typeof(BoatTypes));
+            foreach (BoatTypes line in values)
             {
                 Console.WriteLine("{0}: {1}", countBoatType, line);
                 countBoatType++;
             }
-            _type = int.Parse(Console.ReadLine());
-
+            selectedBoatType = (BoatTypes) int.Parse(Console.ReadLine());
             Console.Write("Hur lång är båten i CM?: ");
             _length = int.Parse(Console.ReadLine());
         }
