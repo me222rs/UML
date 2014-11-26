@@ -11,7 +11,6 @@ namespace BåtklubbGladPirat.Controller
 {
     class MenuController
     {
-        private string memberTextFile = "";
 
         MenuView mv;
         BoatModel boatModel;

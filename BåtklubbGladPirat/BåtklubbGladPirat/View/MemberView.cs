@@ -107,10 +107,10 @@ namespace BåtklubbGladPirat.View
                 throw new Exception();
             }
 
-            Console.Write("Personnummer(10 siffror): ");
+            Console.Write("Personnummer(yyyymmdd): ");
             _personId = int.Parse(Console.ReadLine());
             double numberOfDigits = Math.Floor(Math.Log10(_personId) + 1);
-            if (numberOfDigits != 10)
+            if (numberOfDigits != 8)
             {
                 throw new Exception();
             }
