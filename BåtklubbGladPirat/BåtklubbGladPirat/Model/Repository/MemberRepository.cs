@@ -66,7 +66,7 @@ namespace BåtklubbGladPirat.Model.Repository
                     }
                 }
                 string[] info = memberLine.Split(';');
-                strArr.Add(info[0] + " " + count + " Båt(ar)");//Lägger till hur många båtar som varje ensklid medlem har.
+                strArr.Add(info[0] + " " + count);//Lägger till hur många båtar som varje ensklid medlem har.
             }
             return strArr;//Returnar en lista med medlemmar och hur många båtar de har
         }

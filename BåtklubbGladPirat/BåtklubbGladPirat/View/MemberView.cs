@@ -85,7 +85,8 @@ namespace BåtklubbGladPirat.View
         {
             foreach (string r in members)
             {
-                Console.WriteLine(r);
+
+                Console.WriteLine(r + " Båt(ar)");
             }
         }
 
