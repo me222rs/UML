@@ -50,7 +50,7 @@ namespace BåtklubbGladPirat.Controller
                         memberView.ViewCompactListMembers(memberModel.ViewCompactListMembers());//Visa medlemmar med hur många båtar de har
                         break;
                     case 3:
-                        memberView.ViewAllMembers(memberModel.ViewCompleteMembers()); // Visa alla medlemmar med deras båtar
+                        memberView.ViewAllMembers(memberModel.ViewAllMembers()); // Visa alla medlemmar med deras båtar
                         break;
                     case 4:
                         memberView.DeleteMember(memberModel.ViewAllMembers());// Ta bort medlem
@@ -61,7 +61,8 @@ namespace BåtklubbGladPirat.Controller
                         memberModel.EditMember(memberView.getMemberNumber(), memberView.getFName(), memberView.getPersonId());
                         break;
                     case 6:
-                        memberView.ShowMember(memberModel.ViewCompactListMembers(), memberModel.ViewAllMembers());//Visa en enstaka medlem
+                        
+                        memberView.ShowMember(memberModel.ViewCompactListMembers(), memberModel.ViewAllMembers(), boatModel.ViewAllboats());//Visa en enstaka medlem
                         break;
                     case 7:
                         boatView.AddBoat(memberModel.ViewAllMembers());//Lägger till en ny båt

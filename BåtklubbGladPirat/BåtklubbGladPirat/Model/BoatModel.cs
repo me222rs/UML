@@ -24,19 +24,20 @@ namespace BåtklubbGladPirat.Model
 
     class BoatModel
     {
-        //private List<BoatTypes> types = new List<BoatTypes>();
-        //public IEnumerable<BoatTypes> GetBoatTypes()
-        //{
-        //    return types.Cast<BoatTypes>();
-        //}
-
         MemberModel memberModel;
         BoatRepository boatRepository;
+
+
 
         public BoatModel() 
         {
             memberModel = new MemberModel();
             boatRepository = new BoatRepository(memberModel);
+        }
+
+
+        public List<Boat> GetBoatsById(int memberID) {
+            return boatRepository.GetBoatsById(memberID);
         }
 
         public void AddBoat(int member, BoatTypes type, int length)
@@ -49,37 +50,12 @@ namespace BåtklubbGladPirat.Model
             boatRepository.RemoveBoat(boat);
         }
 
-        /*
-        *   ANVÄNDS DENNA????
-         */
-        //public BoatTypes BoatType(int type) 
-        //{
-        //    switch (type)
-        //    {
-        //        case 0:
-        //            return BoatTypes.Segelbåt;
-        //            break;
-        //        case 1:
-        //           return BoatTypes.Motorseglare;
-        //            break;
-        //        case 2:
-        //            return BoatTypes.Motorbåt;
-        //            break;
-        //        case 3:
-        //            return BoatTypes.Kajak;
-        //            break;
-        //        default:
-        //            return BoatTypes.Övrigt;
-        //            break;
-        //    }
-        //}
-
         public void Editboat(int boat, BoatTypes type, int length)
         {
             boatRepository.Editboat(boat, type, length);
         }
 
-        public List<string> ViewAllboats()//Visar alla båtar som finns
+        public List<Boat> ViewAllboats()//Visar alla båtar som finns
         {
             return boatRepository.ViewAllboats();
         }

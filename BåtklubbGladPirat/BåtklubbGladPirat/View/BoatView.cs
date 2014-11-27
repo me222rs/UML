@@ -30,12 +30,12 @@ namespace BåtklubbGladPirat.View
             return _boatNumber;
         }
 
-        public void EditBoat(List<string> boatList) //Frågar vilken båt du vill redigera
+        public void EditBoat(List<Boat> boatList) //Frågar vilken båt du vill redigera
         {
             int count = 0;
-            foreach (string r in boatList)
+            foreach (Boat r in boatList)
             {
-                Console.WriteLine("{0}: {1}", count, r);
+                Console.WriteLine("{0}: {1} {2} {3}", count, r.MemberID, r.Type, r.Length);
                 count++;
             }
 
@@ -43,7 +43,7 @@ namespace BåtklubbGladPirat.View
             _boatNumber = int.Parse(Console.ReadLine());
 
             Console.Clear();
-            Console.WriteLine(boatList[_boatNumber]);
+            Console.WriteLine(boatList[_boatNumber].Type + " " + boatList[_boatNumber].Length);
 
             Console.WriteLine("Fyll i de nya uppgifterna");
 
@@ -61,13 +61,13 @@ namespace BåtklubbGladPirat.View
             _length = int.Parse(Console.ReadLine());
         }
         //***
-        public void RemoveBoat(List<string> boatList)//Frågar vilken båt man vill ta bort
+        public void RemoveBoat(List<Boat> boatList)//Frågar vilken båt man vill ta bort
         {
             int count = 0;
             
-            foreach (string line in boatList)
+            foreach (Boat line in boatList)
             {
-                Console.WriteLine("{0}: {1}", count, line); //lägger till radnummer framför
+                Console.WriteLine("{0}: {1} {2}", count, line.MemberID, line.Type); //lägger till radnummer framför
                 count++;
             }
 
@@ -75,12 +75,12 @@ namespace BåtklubbGladPirat.View
             _boatNumber = int.Parse(Console.ReadLine());
         }
         //***
-        public void AddBoat(List<string> memberList)
+        public void AddBoat(List<Member> memberList)
         {
             int count = 0;
-            foreach (string line in memberList)
+            foreach (Member line in memberList)
             {
-                Console.WriteLine("{0}: {1}", count, line);
+                Console.WriteLine("{0}: {1} {2}", count, line.MemberID, line.Name);
                 count++;
             }
 

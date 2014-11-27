@@ -1,9 +1,1 @@
-914874;Segelbåt;555555;
-914874;Motorseglare;35;
-943208;Kajak;454;
-458577;Kajak;1337;
-159309;Övrigt;455;
-159309;Segelbåt;654;
-458577;Motorbåt;465;
-458577;Kajak;654;
-458577;Segelbåt;1338;
+227316;Motorseglare;7777;

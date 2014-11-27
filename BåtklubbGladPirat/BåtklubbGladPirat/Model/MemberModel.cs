@@ -17,31 +17,25 @@ namespace BåtklubbGladPirat.Model
     {
         
         MemberRepository memberRepository = new MemberRepository();
- 
+
+
+        public List<Member> ViewAllMembers() {
+            return memberRepository.ViewAllMembers();
+        }
 
         public void CreateMember(string name, int personNumber)
         {
             memberRepository.CreateMember(name, personNumber);
         }
 
-        public string createUniqueNumber()
+        public List<Unique> createUniqueNumber()
         {
            return memberRepository.createUniqueNumber();
         }
 
-        public List<string> ViewCompactListMembers() //Visar en kompakt lista av medlemmarna och hur många båtar dom har var
+        public List<Member> ViewCompactListMembers() //Visar en kompakt lista av medlemmarna och hur många båtar dom har var
         {
             return memberRepository.ViewCompactListMembers();//Returnar en lista med medlemmar och hur många båtar de har
-        }
-
-        public List<string> ViewAllMembers()//Visar alla medlemmar utan båtar
-        {
-            return memberRepository.ViewAllMembers();
-        }
-
-        public List<string> ViewCompleteMembers()//Visar medlemmar med deras båtar 
-        {
-            return memberRepository.ViewCompleteMembers();//Returnerar en lista med Medlemmar och deras tillhörande båtar
         }
 
         public void DeleteMember(int member)//Tar bort medlem beroende på radnummer

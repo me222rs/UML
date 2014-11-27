@@ -9,104 +9,113 @@ namespace BåtklubbGladPirat.Model.Repository
 {
     class MemberRepository : Repository
     {
-        private List<string> memberList;
+        
+        private List<Member> memberList;
+        private List<Unique> uniqueNumberList;
+
         public void CreateMember(string name, int personNumber)
         {
 
             using (StreamWriter writer = new StreamWriter(memberTextFile, true))
             {
-                string medlemsnummer = createUniqueNumber();
+                List<Unique> medlemsnummer = createUniqueNumber();
 
                 using (StreamWriter writer2 = new StreamWriter(unikTextFile, true))
                 {
-                    writer2.WriteLine(medlemsnummer);
+                    writer2.WriteLine(medlemsnummer[0].UniqueNumber);
                 }
-                writer.Write(medlemsnummer + " " + name + ";" + personNumber + ";" + "\n");
+                writer.Write(medlemsnummer[0].UniqueNumber + ";" + name + ";" + personNumber + ";" + "\n");
             }
         }
 
-        public string createUniqueNumber()
+        public List<Unique> createUniqueNumber()
         {
+            uniqueNumberList = new List<Unique>(100);
             bool ifNumberExists;
-            string ret = "";
+            //string ret = "";
 
             do//Om ett nummer redan finns, ge användaren ett nytt utan att visa några errors
             {
-                int uniqueNumber;
+                
+                
                 Random random = new Random();
-                uniqueNumber = random.Next(111111, 999999);
-                ret = uniqueNumber.ToString();
+                //uniqueNumberList[0].UniqueNumber = random.Next(111111, 999999);
+                uniqueNumberList.Add(new Unique
+                {
+                    UniqueNumber = random.Next(111111, 999999),
+                });
+                //ret = uniqueNumber.ToString();
 
                 string[] lines = File.ReadAllLines(unikTextFile);
                 ifNumberExists = false;
-                if (lines.Contains(ret))
-                {
-                    ifNumberExists = true;
-                }
-            } while (ifNumberExists == true);
+                
 
-            return ret;
+                    if (lines.Contains(uniqueNumberList[0].UniqueNumber.ToString()))
+                    {
+                        ifNumberExists = true;
+                        throw new Exception();
+                    }
+                
+
+            } while (ifNumberExists == true);
+            
+
+               
+
+            return uniqueNumberList;
         }
 
-        public List<string> ViewCompactListMembers() //Visar en kompakt lista av medlemmarna och hur många båtar dom har var
+        public List<Member> ViewCompactListMembers() //Visar en kompakt lista av medlemmarna och hur många båtar dom har var
         {
             string[] lines = File.ReadAllLines(memberTextFile);
-            List<string> strArr = new List<string>();
-
             string[] numberOfBoats = File.ReadAllLines(boatTextFile);
+            memberList = new List<Member>(100);
+            Member member = new Member();
+            //Boat boat = new Boat();
 
             foreach (string memberLine in lines)
             {
+                string[] memberId = memberLine.Split(';');
                 int count = 0;
                 foreach (string boatLine in numberOfBoats)
                 {
-                    if (memberLine.Substring(0, 6) == boatLine.Substring(0, 6))//Kollar om medlemsnummer i en rad är lika med båtars medlemsnummer
+                    string[] boatId = boatLine.Split(';');
+                    if (memberId[0] == boatId[0])//Kollar om medlemsnummer i en rad är lika med båtars medlemsnummer
                     {
                         count++;
                     }
                 }
-                string[] info = memberLine.Split(';');
-                strArr.Add(info[0] + " " + count);//Lägger till hur många båtar som varje ensklid medlem har.
-            }
-            return strArr;//Returnar en lista med medlemmar och hur många båtar de har
-        }
-
-        public List<string> ViewAllMembers()//Visar alla medlemmar utan båtar
-        {
-            string[] lines = File.ReadAllLines(memberTextFile);
-            List<string> strArr = new List<string>();
-
-            foreach (string memberLine in lines)
-            {
-                strArr.Add(memberLine);
-            }
-            return strArr;
-        }
-
-        public List<string> ViewCompleteMembers()//Visar medlemmar med deras båtar 
-        {
-            string[] lines = File.ReadAllLines(memberTextFile);
-            List<string> strArr = new List<string>();
-
-            string[] numberOfBoats = File.ReadAllLines(boatTextFile);
-            List<string> boats = new List<string>();
-
-            foreach (string memberLine in lines)//Loopar medlemmar
-            {
-                foreach (string boatLine in numberOfBoats)//Loopar båtarna och matchar dom med medlemmarna som äger båten
+                memberList.Add(new Member
                 {
-                    if (memberLine.Substring(0, 6) == boatLine.Substring(0, 6))//Om memberID stämmer överens med memberID på en båt, plocka ut båtinfo
-                    {
-                        string p = boatLine.Substring(7);//Visar båtar utan medlemsnummer 
-                        boats.Add(p);//Lägger till båtar i en lista 
-                    }
-                }
-                strArr.Add(memberLine);//Lägger till medlem i en lista
-                strArr.AddRange(boats);//Lägger till alla båtar som tillhör rätt medlem
-                boats.Clear();//rensar båt listan för att kunna återanvända vid nästa medlem
+                    MemberID = int.Parse(memberId[0]),
+                    Name = memberId[1],
+                    NumberOfBoats = count,
+                });
+                //Lägger till hur många båtar som varje ensklid medlem har.
             }
-            return strArr;//Returnerar en lista med Medlemmar och deras tillhörande båtar
+            return memberList;//Returnar en lista med medlemmar och hur många båtar de har
         }
+
+        public List<Member> ViewAllMembers() {
+            memberList = new List<Member>(100);
+
+            string[] lines = File.ReadAllLines(memberTextFile);
+            foreach (string x in lines) {
+                string[] test = x.Split(';');
+                memberList.Add(new Member
+                {
+                    MemberID = int.Parse(test[0]),
+                    Name = test[1],
+                    PersonalNumber = int.Parse(test[2]),
+                });
+            }
+            
+            
+
+
+            return memberList;
+        }
+
 
         public void DeleteMember(int member)//Tar bort medlem beroende på radnummer
         {
@@ -118,22 +127,25 @@ namespace BåtklubbGladPirat.Model.Repository
             {
                 for (int i = 0; i < lineCount - 1; i++)
                 {
-                    writer.WriteLine(memberList[i]);
+                    writer.WriteLine(memberList[i].MemberID + ";" + memberList[i].Name + ";" + memberList[i].PersonalNumber + ";");
                 }
             }
         }
 
         public void EditMember(int member, string name, int personalID)
         {
-            int memberID = int.Parse(memberList[member].Substring(0, 6));
+            memberList = ViewAllMembers();
+            int memberID = memberList[member].MemberID;
 
             DeleteMember(member);
 
             using (StreamWriter writer = new StreamWriter(memberTextFile, true))
             {
-                writer.Write(memberID + " " + name + " ;" + personalID + ";" + "\n");
+                writer.WriteLine(memberID + ";" + name + ";" + personalID + ";");
             }
         }
+
+
 
 
     }
