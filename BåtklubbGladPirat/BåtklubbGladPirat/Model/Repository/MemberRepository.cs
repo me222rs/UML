@@ -12,6 +12,7 @@ namespace BåtklubbGladPirat.Model.Repository
         private List<Member> memberList;
         private List<Unique> uniqueNumberList;
 
+
         public void CreateMember(string name, int personNumber)
         {
             using (StreamWriter writer = new StreamWriter(memberTextFile, true))
@@ -42,11 +43,11 @@ namespace BåtklubbGladPirat.Model.Repository
                 string[] lines = File.ReadAllLines(unikTextFile);
                 ifNumberExists = false;
 
-                    if (lines.Contains(uniqueNumberList[0].UniqueNumber.ToString()))
-                    {
-                        ifNumberExists = true;
-                        throw new Exception();
-                    }
+                if (lines.Contains(uniqueNumberList[0].UniqueNumber.ToString()))
+                {
+                    ifNumberExists = true;
+                    throw new Exception();
+                }
             } while (ifNumberExists == true);
 
             return uniqueNumberList;

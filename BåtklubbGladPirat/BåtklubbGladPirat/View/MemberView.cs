@@ -125,7 +125,7 @@ namespace BåtklubbGladPirat.View
             {
                 try
                 {
-                    Console.Write("Nytt personnummer: ");
+                    Console.Write("Nytt personnummer<8 nummer>: ");
                     _personId = int.Parse(Console.ReadLine());
 
                     if (Math.Ceiling(Math.Log10(_personId)) != 8)
@@ -208,7 +208,7 @@ namespace BåtklubbGladPirat.View
                         break;
                     }
                 }catch {
-                    Console.Write("Felaktig inmatning!");
+                    Console.WriteLine("Felaktig inmatning!");
                 }
             }while(true);
 

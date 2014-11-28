@@ -78,7 +78,14 @@ namespace BåtklubbGladPirat.View
                 try
                 {
                     selectedBoatType = (BoatTypes)int.Parse(Console.ReadLine());
-                    break;
+                    if (Convert.ToInt32(selectedBoatType) > Enum.GetNames(typeof(BoatTypes)).Length - 1)
+                    {
+                        throw new Exception();
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }catch {
                     Console.WriteLine("Felaktig inmatning!");
                 }
@@ -88,7 +95,7 @@ namespace BåtklubbGladPirat.View
             {
                 try
                 {
-                    Console.WriteLine("Ny längd i cm: ");
+                    Console.WriteLine("Ny längd i cm (Max 1000): ");
                     _length = int.Parse(Console.ReadLine());
 
                     if (_length > 1000)
@@ -182,7 +189,13 @@ namespace BåtklubbGladPirat.View
                 try
                 {
                     selectedBoatType = (BoatTypes)int.Parse(Console.ReadLine());
-                    break;
+                    if (Convert.ToInt32(selectedBoatType) > Enum.GetNames(typeof(BoatTypes)).Length - 1)
+                    {
+                        throw new Exception();
+                    }
+                    else{
+                        break;
+                    }
                 }
                 catch
                 {
@@ -194,7 +207,7 @@ namespace BåtklubbGladPirat.View
             {
                 try
                 {
-                    Console.Write("Hur lång är båten i CM?: ");
+                    Console.Write("Hur lång är båten i CM? (Max 1000): ");
                     _length = int.Parse(Console.ReadLine());
 
                     if (_length > 1000)
