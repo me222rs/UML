@@ -15,13 +15,7 @@ namespace BåtklubbGladPirat.Model
 {
     class MemberModel
     {
-        
         MemberRepository memberRepository = new MemberRepository();
-
-
-        public List<Member> ViewAllMembers() {
-            return memberRepository.ViewAllMembers();
-        }
 
         public void CreateMember(string name, int personNumber)
         {

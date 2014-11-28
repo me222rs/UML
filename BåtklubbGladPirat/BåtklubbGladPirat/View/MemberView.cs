@@ -38,9 +38,25 @@ namespace BåtklubbGladPirat.View
                 Console.WriteLine("{0}: {1} {2}", count, line.MemberID, line.Name);
                 count++;
             }
+            do
+            {
+                try {
 
-            Console.Write("Vilken medlem vill du visa?: ");
-            _memberNumber = int.Parse(Console.ReadLine());
+                    Console.Write("Vilken medlem vill du visa?: ");
+                    _memberNumber = int.Parse(Console.ReadLine());
+
+                    if (_memberNumber > count - 1)
+                    {
+                        throw new Exception();
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }catch {
+                    Console.WriteLine("Felaktig inmatning!");
+                }
+            } while (true);
             BoatModel bm = new BoatModel();
             strArr = bm.GetBoatsById(viewAllMemberList[_memberNumber].MemberID);
 
@@ -49,7 +65,6 @@ namespace BåtklubbGladPirat.View
             foreach(Boat x in strArr){
                 Console.WriteLine(x.Type + " " + x.Length);
             }
-            
         }
 
         public void EditMember(List<Member> memberList) //Frågar vilken medlem du vill redigera
@@ -60,20 +75,72 @@ namespace BåtklubbGladPirat.View
                 Console.WriteLine("{0}: {1} {2}", count, line.MemberID, line.Name);
                 count++;
             }
+            do
+            {
+                try
+                {
+                    Console.Write("Vilken medlem vill du redigera?: ");
+                    _memberNumber = int.Parse(Console.ReadLine());
 
-            Console.Write("Vilken medlem vill du redigera?: ");
-            _memberNumber = int.Parse(Console.ReadLine());
-
+                    if (_memberNumber > count - 1)
+                    {
+                        throw new Exception();
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                catch {
+                    Console.WriteLine("Felaktig inmatning!");
+                }
+            } while (true);
             Console.Clear();
             Console.WriteLine(memberList[_memberNumber].Name);
 
             Console.WriteLine("Fyll i de nya uppgifterna");
+            do
+            {
+                try
+                {
 
-            Console.Write("Nytt namn: ");
-            _fName = Console.ReadLine();
+                    Console.Write("Nytt namn: ");
+                    _fName = Console.ReadLine();
+                    if (_fName == "" || _fName == null || _fName.Length > 40)
+                    {
+                        throw new Exception();
+                    }
+                    else {
+                        break;
+                    }
+                }
+                catch
+                {
+                    Console.WriteLine("Felaktig inmatning!");
+                }
+            } while (true);
 
-            Console.Write("Nytt personnummer: ");
-            _personId = int.Parse(Console.ReadLine());
+
+            do
+            {
+                try
+                {
+                    Console.Write("Nytt personnummer: ");
+                    _personId = int.Parse(Console.ReadLine());
+
+                    if (Math.Ceiling(Math.Log10(_personId)) != 8)
+                    {
+                        throw new Exception();
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                catch {
+                    Console.WriteLine("Felaktig inmatning!");
+                }
+            } while (true);
         }
         //***
         public void DeleteMember(List<Member> memberList)//Frågar vilken medlem man vill ta bort
@@ -85,8 +152,25 @@ namespace BåtklubbGladPirat.View
                 count++;
             }
 
-            Console.Write("Vilken medlem vill du ta bort?: ");
-            _memberNumber = int.Parse(Console.ReadLine());
+            do
+            {
+                try
+                {
+                    Console.Write("Vilken medlem vill du ta bort?: ");
+                    _memberNumber = int.Parse(Console.ReadLine());
+
+                    if (_memberNumber > count - 1)
+                    {
+                        throw new Exception();
+                    }
+                    else{
+                        break;
+                    }
+
+                }catch {
+                    Console.WriteLine("Felaktig inmatning!");
+                }
+            } while (true);
         }
 
         public void ViewCompactListMembers(List<Member> members)
@@ -94,7 +178,7 @@ namespace BåtklubbGladPirat.View
             foreach (Member r in members)
             {
 
-                Console.WriteLine(r.MemberID + r.Name + r.NumberOfBoats + " Båt(ar)");
+                Console.WriteLine(r.MemberID + " " + r.Name + " " + r.NumberOfBoats + " Båt(ar)");
             }
         }
 
@@ -109,21 +193,45 @@ namespace BåtklubbGladPirat.View
 
         public void CreateMember()
         {
-            Console.Write("Förnamn: ");
-            _fName = Console.ReadLine();
+            do{
+                try
+                {
+                    Console.Write("Förnamn: ");
+                    _fName = Console.ReadLine();
 
-            if (_fName == "" || _fName == null)
-            {
-                throw new Exception();
-            }
+                    if (_fName == "" || _fName == null || _fName.Length > 40)
+                    {
+                        throw new Exception();
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }catch {
+                    Console.Write("Felaktig inmatning!");
+                }
+            }while(true);
 
-            Console.Write("Personnummer(yyyymmdd): ");
-            _personId = int.Parse(Console.ReadLine());
-            double numberOfDigits = Math.Floor(Math.Log10(_personId) + 1);
-            if (numberOfDigits != 8)
+            do
             {
-                throw new Exception();
-            }
+                try
+                {
+                    Console.Write("Personnummer(yyyymmdd): ");
+                    _personId = int.Parse(Console.ReadLine());
+
+                    if (Math.Ceiling(Math.Log10(_personId)) != 8)
+                    {
+                        throw new Exception();
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                catch {
+                    Console.WriteLine("Felaktig inmatning!");
+                }
+            } while (true);
         }
     }
 }

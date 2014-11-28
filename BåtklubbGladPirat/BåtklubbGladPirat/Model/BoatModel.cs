@@ -27,14 +27,11 @@ namespace BåtklubbGladPirat.Model
         MemberModel memberModel;
         BoatRepository boatRepository;
 
-
-
         public BoatModel() 
         {
             memberModel = new MemberModel();
             boatRepository = new BoatRepository(memberModel);
         }
-
 
         public List<Boat> GetBoatsById(int memberID) {
             return boatRepository.GetBoatsById(memberID);

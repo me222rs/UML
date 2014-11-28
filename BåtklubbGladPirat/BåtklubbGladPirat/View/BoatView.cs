@@ -38,10 +38,26 @@ namespace BåtklubbGladPirat.View
                 Console.WriteLine("{0}: {1} {2} {3}", count, r.MemberID, r.Type, r.Length);
                 count++;
             }
+            do
+            {
+                try
+                {
+                    Console.Write("Vilken båt vill du redigera?: ");
+                    _boatNumber = int.Parse(Console.ReadLine());
 
-            Console.Write("Vilken båt vill du redigera?: ");
-            _boatNumber = int.Parse(Console.ReadLine());
+                    if (_boatNumber > count - 1)
+                    {
+                        throw new Exception();
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }catch {
+                    Console.WriteLine("felaktig inmatning!");
+                }
 
+            } while (true);
             Console.Clear();
             Console.WriteLine(boatList[_boatNumber].Type + " " + boatList[_boatNumber].Length);
 
@@ -56,9 +72,37 @@ namespace BåtklubbGladPirat.View
                 Console.WriteLine("{0}: {1}", countBoatType, r);
                 countBoatType++;
             }
-            selectedBoatType = (BoatTypes) int.Parse(Console.ReadLine());
-            Console.Write("Ny längd: ");
-            _length = int.Parse(Console.ReadLine());
+
+            do
+            {
+                try
+                {
+                    selectedBoatType = (BoatTypes)int.Parse(Console.ReadLine());
+                    break;
+                }catch {
+                    Console.WriteLine("Felaktig inmatning!");
+                }
+            } while (true);
+
+            do
+            {
+                try
+                {
+                    Console.WriteLine("Ny längd i cm: ");
+                    _length = int.Parse(Console.ReadLine());
+
+                    if (_length > 1000)
+                    {
+                        throw new Exception();
+                    }
+                    else{
+                        break;
+                    }
+                }
+                catch {
+                    Console.WriteLine("Felaktig inmatning!");
+                }
+            } while (true);
         }
         //***
         public void RemoveBoat(List<Boat> boatList)//Frågar vilken båt man vill ta bort
@@ -71,8 +115,27 @@ namespace BåtklubbGladPirat.View
                 count++;
             }
 
-            Console.Write("Vilken båt vill du ta bort?: ");
-            _boatNumber = int.Parse(Console.ReadLine());
+            do
+            {
+                try
+                {
+                    Console.Write("Vilken båt vill du ta bort?: ");
+                    _boatNumber = int.Parse(Console.ReadLine());
+
+                    if (_boatNumber > count - 1)
+                    {
+                        throw new Exception();
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                catch
+                {
+                    Console.WriteLine("Felaktig inmatning!");
+                }
+            } while (true);
         }
         //***
         public void AddBoat(List<Member> memberList)
@@ -84,8 +147,27 @@ namespace BåtklubbGladPirat.View
                 count++;
             }
 
-            Console.Write("Lägga till en båt på vem?: ");
-            _boatNumber = int.Parse(Console.ReadLine());
+            do
+            {
+                try
+                {
+                    Console.Write("Lägga till en båt på vem?: ");
+                    _boatNumber = int.Parse(Console.ReadLine());
+
+                    if (_boatNumber > count - 1)
+                    {
+                        throw new Exception();
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                catch
+                {
+                    Console.WriteLine("Felaktig inmatning!");
+                }
+            } while (true);
 
             int countBoatType = 0;
             Console.WriteLine("Vilken båttyp: ");
@@ -95,9 +177,40 @@ namespace BåtklubbGladPirat.View
                 Console.WriteLine("{0}: {1}", countBoatType, line);
                 countBoatType++;
             }
-            selectedBoatType = (BoatTypes) int.Parse(Console.ReadLine());
-            Console.Write("Hur lång är båten i CM?: ");
-            _length = int.Parse(Console.ReadLine());
+            do
+            {
+                try
+                {
+                    selectedBoatType = (BoatTypes)int.Parse(Console.ReadLine());
+                    break;
+                }
+                catch
+                {
+                    Console.WriteLine("Felaktig inmatning!");
+                }
+            } while (true);
+
+            do
+            {
+                try
+                {
+                    Console.Write("Hur lång är båten i CM?: ");
+                    _length = int.Parse(Console.ReadLine());
+
+                    if (_length > 1000)
+                    {
+                        throw new Exception();
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                catch
+                {
+                    Console.WriteLine("Felaktig inmatning!");
+                }
+            } while (true);
         }
     }
 }

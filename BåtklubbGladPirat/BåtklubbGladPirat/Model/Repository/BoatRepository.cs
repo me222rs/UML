@@ -10,7 +10,6 @@ namespace BåtklubbGladPirat.Model.Repository
 {
     class BoatRepository : Repository
     {
-
         private MemberModel memberModel;
         private List<Boat> boatList;
 
@@ -43,7 +42,6 @@ namespace BåtklubbGladPirat.Model.Repository
                 for (int i = 0; i < lineCount - 1; i++)
                 {
                     writer.WriteLine(boatList[i].MemberID + ";" + boatList[i].Type + ";" + boatList[i].Length + ";");
-                    //writer.WriteLine(boatList[i]);
                 }
             }
         }
@@ -69,13 +67,9 @@ namespace BåtklubbGladPirat.Model.Repository
 
         public List<Boat> GetBoatsById(int memberID)
         {
-
-            //int count = 0;
            string[] numberOfBoats = File.ReadAllLines(boatTextFile);
 
-            //List<Boat> boatList2 = new List<Boat>(100);
             boatList = new List<Boat>(100);
-            //boatList = ViewAllboats();
             foreach (string x in numberOfBoats)
             {
                 string[] boat = x.Split(';');
@@ -89,12 +83,7 @@ namespace BåtklubbGladPirat.Model.Repository
                     Length = int.Parse(boat[2]),
                 });
                 }
-                //count++;
             }
-            
-            
-
-
             return boatList;
         }
 

@@ -9,13 +9,11 @@ namespace BåtklubbGladPirat.Model.Repository
 {
     class MemberRepository : Repository
     {
-        
         private List<Member> memberList;
         private List<Unique> uniqueNumberList;
 
         public void CreateMember(string name, int personNumber)
         {
-
             using (StreamWriter writer = new StreamWriter(memberTextFile, true))
             {
                 List<Unique> medlemsnummer = createUniqueNumber();
@@ -32,35 +30,24 @@ namespace BåtklubbGladPirat.Model.Repository
         {
             uniqueNumberList = new List<Unique>(100);
             bool ifNumberExists;
-            //string ret = "";
 
             do//Om ett nummer redan finns, ge användaren ett nytt utan att visa några errors
             {
-                
-                
                 Random random = new Random();
-                //uniqueNumberList[0].UniqueNumber = random.Next(111111, 999999);
                 uniqueNumberList.Add(new Unique
                 {
                     UniqueNumber = random.Next(111111, 999999),
                 });
-                //ret = uniqueNumber.ToString();
 
                 string[] lines = File.ReadAllLines(unikTextFile);
                 ifNumberExists = false;
-                
 
                     if (lines.Contains(uniqueNumberList[0].UniqueNumber.ToString()))
                     {
                         ifNumberExists = true;
                         throw new Exception();
                     }
-                
-
             } while (ifNumberExists == true);
-            
-
-               
 
             return uniqueNumberList;
         }
@@ -71,7 +58,6 @@ namespace BåtklubbGladPirat.Model.Repository
             string[] numberOfBoats = File.ReadAllLines(boatTextFile);
             memberList = new List<Member>(100);
             Member member = new Member();
-            //Boat boat = new Boat();
 
             foreach (string memberLine in lines)
             {
@@ -89,6 +75,7 @@ namespace BåtklubbGladPirat.Model.Repository
                 {
                     MemberID = int.Parse(memberId[0]),
                     Name = memberId[1],
+                    PersonalNumber = int.Parse(memberId[2]),
                     NumberOfBoats = count,
                 });
                 //Lägger till hur många båtar som varje ensklid medlem har.
@@ -96,30 +83,12 @@ namespace BåtklubbGladPirat.Model.Repository
             return memberList;//Returnar en lista med medlemmar och hur många båtar de har
         }
 
-        public List<Member> ViewAllMembers() {
-            memberList = new List<Member>(100);
 
-            string[] lines = File.ReadAllLines(memberTextFile);
-            foreach (string x in lines) {
-                string[] test = x.Split(';');
-                memberList.Add(new Member
-                {
-                    MemberID = int.Parse(test[0]),
-                    Name = test[1],
-                    PersonalNumber = int.Parse(test[2]),
-                });
-            }
-            
-            
-
-
-            return memberList;
-        }
 
 
         public void DeleteMember(int member)//Tar bort medlem beroende på radnummer
         {
-            memberList = ViewAllMembers();
+            memberList = ViewCompactListMembers();
             memberList.RemoveAt(member);
             var lineCount = File.ReadLines(memberTextFile).Count();
 
@@ -134,7 +103,7 @@ namespace BåtklubbGladPirat.Model.Repository
 
         public void EditMember(int member, string name, int personalID)
         {
-            memberList = ViewAllMembers();
+            memberList = ViewCompactListMembers();
             int memberID = memberList[member].MemberID;
 
             DeleteMember(member);
@@ -144,9 +113,5 @@ namespace BåtklubbGladPirat.Model.Repository
                 writer.WriteLine(memberID + ";" + name + ";" + personalID + ";");
             }
         }
-
-
-
-
     }
 }
