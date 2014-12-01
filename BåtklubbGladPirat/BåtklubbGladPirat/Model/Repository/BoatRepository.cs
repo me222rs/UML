@@ -46,6 +46,7 @@ namespace BåtklubbGladPirat.Model.Repository
             }
         }
 
+        //Hämtar ut alla båtar
         public List<Boat> ViewAllboats()//Visar alla båtar som finns
         {
              string[] numberOfBoats = File.ReadAllLines(boatTextFile);
@@ -61,10 +62,11 @@ namespace BåtklubbGladPirat.Model.Repository
                     Length = int.Parse(boat[2]),
                 });
             }
+            boatList.TrimExcess();
             return boatList;
         }
 
-
+        //Hämtar ut båtar som tillhör en medlem
         public List<Boat> GetBoatsById(int memberID)
         {
            string[] numberOfBoats = File.ReadAllLines(boatTextFile);
@@ -84,6 +86,7 @@ namespace BåtklubbGladPirat.Model.Repository
                 });
                 }
             }
+            boatList.TrimExcess();
             return boatList;
         }
 

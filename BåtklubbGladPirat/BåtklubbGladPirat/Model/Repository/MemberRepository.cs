@@ -50,6 +50,7 @@ namespace BåtklubbGladPirat.Model.Repository
                 }
             } while (ifNumberExists == true);
 
+            uniqueNumberList.TrimExcess();
             return uniqueNumberList;
         }
 
@@ -81,6 +82,7 @@ namespace BåtklubbGladPirat.Model.Repository
                 });
                 //Lägger till hur många båtar som varje ensklid medlem har.
             }
+            memberList.TrimExcess();
             return memberList;//Returnar en lista med medlemmar och hur många båtar de har
         }
 
