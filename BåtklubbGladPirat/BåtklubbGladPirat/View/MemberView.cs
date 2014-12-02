@@ -12,7 +12,7 @@ namespace BåtklubbGladPirat.View
     {
         private string _fName;
         private int _personId;
-        private int _memberNumber;
+        private Member _member;
 
         public string getFName() 
         {
@@ -24,16 +24,16 @@ namespace BåtklubbGladPirat.View
             return _personId;
         }
 
-        public int getMemberNumber() 
+        public Member getMember()
         {
-            return _memberNumber;
+            return _member;
         }
 
-        public void ShowMember(List<Member> compactMemberList, List<Member> viewAllMemberList, List<Boat>viewAllBoats)//Visa enskild medlem 
+        public void ShowMember(List<Member> memberList, List<Boat>viewAllBoats)//Visa enskild medlem 
         {
             List<Boat> strArr = new List<Boat>(100);
             int count = 0;
-            foreach (Member line in compactMemberList)
+            foreach (Member line in memberList)
             {
                 Console.WriteLine("{0}: {1} {2}", count, line.MemberID, line.Name);
                 count++;
@@ -43,9 +43,9 @@ namespace BåtklubbGladPirat.View
                 try {
 
                     Console.Write("Vilken medlem vill du visa?: ");
-                    _memberNumber = int.Parse(Console.ReadLine());
+                    _member = memberList[int.Parse(Console.ReadLine())];
 
-                    if (_memberNumber > count - 1)
+                    if (false)
                     {
                         throw new Exception();
                     }
@@ -58,10 +58,11 @@ namespace BåtklubbGladPirat.View
                 }
             } while (true);
             BoatModel bm = new BoatModel();
-            strArr = bm.GetBoatsById(viewAllMemberList[_memberNumber].MemberID);
+            strArr = bm.GetBoatsById(_member.MemberID);
 
             Console.Clear();
-            Console.WriteLine(viewAllMemberList[_memberNumber].MemberID + " " +viewAllMemberList[_memberNumber].Name + " " + viewAllMemberList[_memberNumber].PersonalNumber);
+            Console.WriteLine(_member.MemberID + " " + _member.Name + " " + _member.PersonalNumber);
+
             foreach(Boat x in strArr){
                 Console.WriteLine(x.Type + " " + x.Length);
             }
@@ -80,9 +81,9 @@ namespace BåtklubbGladPirat.View
                 try
                 {
                     Console.Write("Vilken medlem vill du redigera?: ");
-                    _memberNumber = int.Parse(Console.ReadLine());
+                    _member = memberList[int.Parse(Console.ReadLine())];
 
-                    if (_memberNumber > count - 1)
+                    if (false)
                     {
                         throw new Exception();
                     }
@@ -96,7 +97,7 @@ namespace BåtklubbGladPirat.View
                 }
             } while (true);
             Console.Clear();
-            Console.WriteLine(memberList[_memberNumber].Name);
+            Console.WriteLine(_member.Name);
 
             Console.WriteLine("Fyll i de nya uppgifterna");
             do
@@ -157,9 +158,9 @@ namespace BåtklubbGladPirat.View
                 try
                 {
                     Console.Write("Vilken medlem vill du ta bort?: ");
-                    _memberNumber = int.Parse(Console.ReadLine());
+                    _member = memberList[int.Parse(Console.ReadLine())];
 
-                    if (_memberNumber > count - 1)
+                    if (false)
                     {
                         throw new Exception();
                     }

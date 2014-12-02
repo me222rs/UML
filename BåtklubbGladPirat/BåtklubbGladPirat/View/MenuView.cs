@@ -27,20 +27,25 @@ namespace BåtklubbGladPirat.View
             Console.BackgroundColor = ConsoleColor.DarkCyan;
             Console.WriteLine("=     Den glade piraten     =");
             Console.ResetColor();
-            Console.WriteLine(" - Medlem -----------------------\n");
+            Console.WriteLine(" - Medlem -----------------------");
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(" 0. Avsluta.");
+            Console.ResetColor();
             Console.WriteLine(" 1. Lägg till medlem.");
-            Console.WriteLine(" 2. Visa kompakt lista.\n");
-            Console.WriteLine(" 3. Visa fullständig lista.\n");
-            Console.WriteLine(" 4. Ta bort medlem.\n");
-            Console.WriteLine(" 5. Redigera medlem.\n");
-            Console.WriteLine(" 6. Visa medlem.\n");
-            Console.WriteLine(" - Båt --------------------\n");
-            Console.WriteLine(" 7. Registrera båt.\n");
-            Console.WriteLine(" 8. Ta bort båt.\n");
-            Console.WriteLine(" 9. Redigera båt.\n");
-            Console.WriteLine(" ===============================\n");
-            Console.WriteLine(" Ange menyval [0-9]:");
+            Console.WriteLine(" 2. Visa kompakt lista.");
+            Console.WriteLine(" 3. Visa fullständig lista.");
+            Console.WriteLine(" 4. Ta bort medlem.");
+            Console.WriteLine(" 5. Redigera medlem.");
+            Console.WriteLine(" 6. Visa medlem.");
+            Console.WriteLine(" - Båt --------------------");
+            Console.WriteLine(" 7. Registrera båt.");
+            Console.WriteLine(" 8. Ta bort båt.");
+            Console.WriteLine(" 9. Redigera båt.");
+            Console.WriteLine(" - Spara --------------------");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("10. Spara Ändringar.\n");
+            Console.ResetColor();
+            Console.WriteLine(" Ange menyval [0-10]:");
 
             do
             {
@@ -48,7 +53,7 @@ namespace BåtklubbGladPirat.View
                 {
                     choice = int.Parse(Console.ReadLine());         //Läser in ett menyval 0-9 som användaren matar in
 
-                    if (choice > 9 || choice < 0)           //Kastar undantag om det inte är inom intervallet
+                    if (choice > 10 || choice < 0)           //Kastar undantag om det inte är inom intervallet
                     {
                         throw new Exception();
                     }
@@ -61,7 +66,7 @@ namespace BåtklubbGladPirat.View
                 {
                     Console.BackgroundColor = ConsoleColor.DarkRed;
                     Console.ForegroundColor = ConsoleColor.White;
-                    Console.WriteLine("FEL! Det inmatade menyvalet är inte inom intervallet 0-9");
+                    Console.WriteLine("FEL! Det inmatade menyvalet är inte inom intervallet 0-10");
                     Console.ResetColor();
                 }
 

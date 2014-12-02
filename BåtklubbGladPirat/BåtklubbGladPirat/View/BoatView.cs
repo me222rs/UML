@@ -10,9 +10,9 @@ namespace BåtklubbGladPirat.View
 {
     class BoatView
     {
-        private int _type;
         private int _length;
-        private int _boatNumber;
+        private Member _member;
+        private Boat _boat;
         private BoatTypes selectedBoatType;
 
         public int getLength()
@@ -25,9 +25,14 @@ namespace BåtklubbGladPirat.View
             return selectedBoatType;
         }
 
-        public int getBoatNumber()
+        public Member getMember()
         {
-            return _boatNumber;
+            return _member;
+        }
+
+        public Boat getBoat()
+        {
+            return _boat;
         }
 
         public void EditBoat(List<Boat> boatList) //Frågar vilken båt du vill redigera
@@ -43,9 +48,9 @@ namespace BåtklubbGladPirat.View
                 try
                 {
                     Console.Write("Vilken båt vill du redigera?: ");
-                    _boatNumber = int.Parse(Console.ReadLine());
+                    _boat = boatList[int.Parse(Console.ReadLine())];
 
-                    if (_boatNumber > count - 1)
+                    if (false)
                     {
                         throw new Exception();
                     }
@@ -59,7 +64,7 @@ namespace BåtklubbGladPirat.View
 
             } while (true);
             Console.Clear();
-            Console.WriteLine(boatList[_boatNumber].Type + " " + boatList[_boatNumber].Length);
+            Console.WriteLine(_boat.Type + " " + _boat.Length);
 
             Console.WriteLine("Fyll i de nya uppgifterna");
 
@@ -118,7 +123,7 @@ namespace BåtklubbGladPirat.View
             
             foreach (Boat line in boatList)
             {
-                Console.WriteLine("{0}: {1} {2}", count, line.MemberID, line.Type); //lägger till radnummer framför
+                Console.WriteLine("{0}: {1} {2} {3}", count, line.MemberID, line.Type, line.BoatID); //lägger till radnummer framför
                 count++;
             }
 
@@ -127,9 +132,9 @@ namespace BåtklubbGladPirat.View
                 try
                 {
                     Console.Write("Vilken båt vill du ta bort?: ");
-                    _boatNumber = int.Parse(Console.ReadLine());
+                    _boat = boatList[int.Parse(Console.ReadLine())];
 
-                    if (_boatNumber > count - 1)
+                    if (false)
                     {
                         throw new Exception();
                     }
@@ -159,9 +164,9 @@ namespace BåtklubbGladPirat.View
                 try
                 {
                     Console.Write("Lägga till en båt på vem?: ");
-                    _boatNumber = int.Parse(Console.ReadLine());
+                    _member = memberList[int.Parse(Console.ReadLine())];
 
-                    if (_boatNumber > count - 1)
+                    if (false)
                     {
                         throw new Exception();
                     }

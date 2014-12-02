@@ -18,32 +18,69 @@ namespace BåtklubbGladPirat.Model.Repository
             this.memberModel = memberModel;
         }
 
-        public void AddBoat(int member, BoatTypes type, int length)
+        public void SaveBoats(List<Boat> boats)
         {
-            List<Member> memberList = memberModel.ViewCompactListMembers();
-
-            int memberID = memberList[member].MemberID;
-
+            File.WriteAllText(boatTextFile, String.Empty);
             using (StreamWriter writer = new StreamWriter(boatTextFile, true))
             {
-                writer.Write(memberID + ";" + type + ";" + length + ";" + "\n");
+                foreach (Boat x in boats)
+                {
+                    writer.WriteLine(x.MemberID + ";" + x.Type + ";" + x.Length + ";" + x.BoatID + ";");
+                }
+
             }
         }
 
-        public void RemoveBoat(int boat)
+        //public void AddBoat(int member, BoatTypes type, int length)
+        //{
+        //    List<Member> memberList = memberModel.ViewCompactListMembers();
+
+        //    int memberID = memberList[member].MemberID;
+
+        //    using (StreamWriter writer = new StreamWriter(boatTextFile, true))
+        //    {
+        //        writer.Write(memberID + ";" + type + ";" + length + ";" + "\n");
+        //    }
+        //}
+
+        //public void RemoveBoat(int boat)
+        //{
+        //    List<Boat> boatList = ViewAllboats();
+
+        //    boatList.RemoveAt(boat);
+        //    var lineCount = File.ReadLines(boatTextFile).Count();
+
+        //    using (StreamWriter writer = new StreamWriter(boatTextFile))
+        //    {
+        //        for (int i = 0; i < lineCount - 1; i++)
+        //        {
+        //            writer.WriteLine(boatList[i].MemberID + ";" + boatList[i].Type + ";" + boatList[i].Length + ";");
+        //        }
+        //    }
+        //}
+
+        public int createBoatUniqueNumber()
         {
-            List<Boat> boatList = ViewAllboats();
+            bool ifNumberExists;
+            int UniqueNumber;
 
-            boatList.RemoveAt(boat);
-            var lineCount = File.ReadLines(boatTextFile).Count();
-
-            using (StreamWriter writer = new StreamWriter(boatTextFile))
+            do//Om ett nummer redan finns, ge användaren ett nytt utan att visa några errors
             {
-                for (int i = 0; i < lineCount - 1; i++)
+                Random random = new Random();
+
+                UniqueNumber = random.Next(1111, 9999);
+
+                string[] lines = File.ReadAllLines(unikTextFile);
+                ifNumberExists = false;
+
+                if (lines.Contains(UniqueNumber.ToString()))
                 {
-                    writer.WriteLine(boatList[i].MemberID + ";" + boatList[i].Type + ";" + boatList[i].Length + ";");
+                    ifNumberExists = true;
+                    throw new Exception();
                 }
-            }
+            } while (ifNumberExists == true);
+
+            return UniqueNumber;
         }
 
         //Hämtar ut alla båtar
@@ -60,6 +97,7 @@ namespace BåtklubbGladPirat.Model.Repository
                     MemberID = int.Parse(boat[0]),
                     Type = boat[1],
                     Length = int.Parse(boat[2]),
+                    BoatID = int.Parse(boat[3]),
                 });
             }
             boatList.TrimExcess();
@@ -96,7 +134,7 @@ namespace BåtklubbGladPirat.Model.Repository
 
             int memberID = boatList[boat].MemberID;
 
-            RemoveBoat(boat);
+            //RemoveBoat(boat);
 
             using (StreamWriter writer = new StreamWriter(boatTextFile, true))
             {

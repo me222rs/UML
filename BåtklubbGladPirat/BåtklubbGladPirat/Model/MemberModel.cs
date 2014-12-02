@@ -16,26 +16,47 @@ namespace BåtklubbGladPirat.Model
     class MemberModel
     {
         MemberRepository memberRepository = new MemberRepository();
-        
 
-        public void CreateMember(string name, int personNumber)
-        {
-            memberRepository.CreateMember(name, personNumber);
+        public List<Member> getAllMembers() {
+            return memberRepository.getAllMembers();
         }
 
-        public List<Member> ViewCompactListMembers() //Visar en kompakt lista av medlemmarna och hur många båtar dom har var
+        public void CreateMember(string name, int personNumber, List<Member> memberList)
         {
-            return memberRepository.ViewCompactListMembers();//Returnar en lista med medlemmar och hur många båtar de har
+            memberList.Add(new Member
+            {
+                MemberID = memberRepository.createUniqueNumber(),
+                Name = name,
+                PersonalNumber = personNumber,
+            });
         }
 
-        public void DeleteMember(int member)//Tar bort medlem beroende på radnummer
-        {
-            memberRepository.DeleteMember(member);
+        public void SaveMembers(List<Member> memberList) {
+            memberRepository.SaveMembers(memberList);
         }
 
-        public void EditMember(int member, string name, int personalID)
+        //public List<Member> ViewCompactListMembers() //Visar en kompakt lista av medlemmarna och hur många båtar dom har var
+        //{
+        //    return memberRepository.ViewCompactListMembers();//Returnar en lista med medlemmar och hur många båtar de har
+        //}
+
+        public void DeleteMember(Member member, List<Member> memberList, List<Boat> boatList)//Tar bort medlem beroende på radnummer
         {
-            memberRepository.EditMember(member, name, personalID);
+            memberList.RemoveAll(x => x.MemberID == member.MemberID);
+            boatList.RemoveAll(x => x.MemberID == member.MemberID);
+           
+        }
+
+        public void EditMember(Member member, string name, int personalID, List<Member> memberList)
+        {
+            memberList.RemoveAll(x => x.MemberID == member.MemberID);
+            
+            memberList.Add(new Member
+            {
+                MemberID = member.MemberID,
+                Name = name,
+                PersonalNumber = personalID,
+            });
         }
     }
 }

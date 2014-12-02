@@ -33,26 +33,45 @@ namespace BåtklubbGladPirat.Model
             boatRepository = new BoatRepository(memberModel);
         }
 
+        public void SaveBoats(List<Boat> boatList) 
+        {
+            boatRepository.SaveBoats(boatList);
+        }
+
         public List<Boat> GetBoatsById(int memberID) {
             return boatRepository.GetBoatsById(memberID);
         }
 
-        public void AddBoat(int member, BoatTypes type, int length)
+        public void AddBoat(Member member, BoatTypes type, int length, List<Boat> boatList)
         {
-            boatRepository.AddBoat(member, type, length);
+            boatList.Add(new Boat
+            {
+                MemberID = member.MemberID,
+                BoatID = boatRepository.createBoatUniqueNumber(),
+                Type = type.ToString(),
+                Length = length,
+            });
         }
 
-        public void RemoveBoat(int boat)
+        public void RemoveBoat(Boat boat, List<Boat> boatList)
         {
-            boatRepository.RemoveBoat(boat);
+            boatList.RemoveAll(x => x.BoatID == boat.BoatID);//Tar bort en båt som matchar båtid
         }
 
-        public void Editboat(int boat, BoatTypes type, int length)
+        public void Editboat(Boat boat, BoatTypes type, int length, List<Boat> boatList)
         {
-            boatRepository.Editboat(boat, type, length);
+            boatList.RemoveAll(x => x.BoatID == boat.BoatID);
+
+            boatList.Add(new Boat
+            {
+                MemberID = boat.MemberID,
+                Type = type.ToString(),
+                Length = length,
+                BoatID = boat.BoatID
+            });
         }
 
-        public List<Boat> ViewAllboats()//Visar alla båtar som finns
+        public List<Boat> getAllBoats()//Visar alla båtar som finns
         {
             return boatRepository.ViewAllboats();
         }

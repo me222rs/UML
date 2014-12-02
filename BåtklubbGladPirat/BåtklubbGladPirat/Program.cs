@@ -11,6 +11,7 @@ namespace BåtklubbGladPirat
     {
         static void Main(string[] args)
         {
+
             MenuController mc = new MenuController();
             mc.MenuChoice();
         }

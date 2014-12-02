@@ -11,27 +11,24 @@ namespace BåtklubbGladPirat.Controller
 {
     class MenuController
     {
-
         MenuView mv;
         BoatModel boatModel;
         BoatView boatView;
         MemberView memberView;
         MemberModel memberModel;
-
+        List<Member> memberList;
+        List<Boat> boatList;
         public MenuController()
         {
-
             boatModel = new BoatModel();
             memberModel = new MemberModel();
             mv = new MenuView();
             memberView = new MemberView();
             boatView = new BoatView();
+            memberList = new List<Member>(100);
 
-
-            //memberTextFile = memberModel.getMemberTextFile;
-
-            //boatModel.SetMemberTextfile(memberTextFile);
-
+            memberList = memberModel.getAllMembers();
+            boatList = boatModel.getAllBoats();
         }
 
         public void MenuChoice()
@@ -44,37 +41,40 @@ namespace BåtklubbGladPirat.Controller
                         return; //Avsluta 
                     case 1:
                         memberView.CreateMember();//Skapa ny medlem
-                        memberModel.CreateMember(memberView.getFName(), memberView.getPersonId());
+                        memberModel.CreateMember(memberView.getFName(), memberView.getPersonId(), memberList);
                         break;
                     case 2:
-                        memberView.ViewCompactListMembers(memberModel.ViewCompactListMembers());//Visa medlemmar med hur många båtar de har
+                        memberView.ViewCompactListMembers(memberList);//Visa medlemmar med hur många båtar de har
                         break;
                     case 3:
-                        memberView.ViewAllMembers(memberModel.ViewCompactListMembers()); // Visa alla medlemmar med deras båtar
+                        memberView.ViewAllMembers(memberList); // Visa alla medlemmar med deras båtar
                         break;
                     case 4:
-                        memberView.DeleteMember(memberModel.ViewCompactListMembers());// Ta bort medlem
-                        memberModel.DeleteMember(memberView.getMemberNumber());
+                        memberView.DeleteMember(memberList);// Ta bort medlem
+                        memberModel.DeleteMember(memberView.getMember(), memberList, boatList);
                         break;
                     case 5:
-                        memberView.EditMember(memberModel.ViewCompactListMembers());// Redigera medlem
-                        memberModel.EditMember(memberView.getMemberNumber(), memberView.getFName(), memberView.getPersonId());
+                        memberView.EditMember(memberList);// Redigera medlem
+                        memberModel.EditMember(memberView.getMember(), memberView.getFName(), memberView.getPersonId(), memberList);
                         break;
                     case 6:
-                        
-                        memberView.ShowMember(memberModel.ViewCompactListMembers(), memberModel.ViewCompactListMembers(), boatModel.ViewAllboats());//Visa en enstaka medlem
+                        memberView.ShowMember(memberList, boatList);//Visa en enstaka medlem
                         break;
                     case 7:
-                        boatView.AddBoat(memberModel.ViewCompactListMembers());//Lägger till en ny båt
-                        boatModel.AddBoat(boatView.getBoatNumber(), boatView.getSelectedBoatType(), boatView.getLength());
+                        boatView.AddBoat(memberList);//Lägger till en ny båt
+                        boatModel.AddBoat(boatView.getMember(), boatView.getSelectedBoatType(), boatView.getLength(), boatList);
                         break;
                     case 8:
-                        boatView.RemoveBoat(boatModel.ViewAllboats());//Tar bort en befintlig båt
-                        boatModel.RemoveBoat(boatView.getBoatNumber());
+                        boatView.RemoveBoat(boatList);//Tar bort en befintlig båt
+                        boatModel.RemoveBoat(boatView.getBoat(), boatList);
                         break;
                     case 9:
-                        boatView.EditBoat(boatModel.ViewAllboats());//Redigerar en båt
-                        boatModel.Editboat(boatView.getBoatNumber(), boatView.getSelectedBoatType(), boatView.getLength());
+                        boatView.EditBoat(boatList);//Redigerar en båt
+                        boatModel.Editboat(boatView.getBoat(), boatView.getSelectedBoatType(), boatView.getLength(), boatList);
+                        break;
+                    case 10:
+                        memberModel.SaveMembers(memberList);
+                        boatModel.SaveBoats(boatList);
                         break;
                 }
                 mv.ContinueOnKeyPressed();
