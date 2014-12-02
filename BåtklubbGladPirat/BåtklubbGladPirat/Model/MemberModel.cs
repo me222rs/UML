@@ -15,7 +15,13 @@ namespace BåtklubbGladPirat.Model
 {
     class MemberModel
     {
-        MemberRepository memberRepository = new MemberRepository();
+        MemberRepository memberRepository;
+
+        public MemberModel() 
+        {
+            memberRepository = new MemberRepository();
+        }
+
 
         public List<Member> getAllMembers() {
             return memberRepository.getAllMembers();
@@ -34,11 +40,6 @@ namespace BåtklubbGladPirat.Model
         public void SaveMembers(List<Member> memberList) {
             memberRepository.SaveMembers(memberList);
         }
-
-        //public List<Member> ViewCompactListMembers() //Visar en kompakt lista av medlemmarna och hur många båtar dom har var
-        //{
-        //    return memberRepository.ViewCompactListMembers();//Returnar en lista med medlemmar och hur många båtar de har
-        //}
 
         public void DeleteMember(Member member, List<Member> memberList, List<Boat> boatList)//Tar bort medlem beroende på radnummer
         {

@@ -19,7 +19,7 @@ namespace BåtklubbGladPirat.View
             Console.CursorVisible = true;
         }
 
-        public int GetMenuChoice()          //Skriver ut menyn
+        public int GetMenuChoice() //Skriver ut menyn
         {
             int choice = 0;
 
@@ -69,7 +69,6 @@ namespace BåtklubbGladPirat.View
                     Console.WriteLine("FEL! Det inmatade menyvalet är inte inom intervallet 0-10");
                     Console.ResetColor();
                 }
-
             } while (true);
             return choice;   //Returnar menyvalet
         }

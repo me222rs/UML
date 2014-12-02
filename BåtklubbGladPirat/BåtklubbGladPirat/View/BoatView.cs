@@ -50,7 +50,7 @@ namespace BåtklubbGladPirat.View
                     Console.Write("Vilken båt vill du redigera?: ");
                     _boat = boatList[int.Parse(Console.ReadLine())];
 
-                    if (false)
+                    if (!boatList.Exists(x => x.MemberID == _boat.MemberID))
                     {
                         throw new Exception();
                     }
@@ -134,7 +134,7 @@ namespace BåtklubbGladPirat.View
                     Console.Write("Vilken båt vill du ta bort?: ");
                     _boat = boatList[int.Parse(Console.ReadLine())];
 
-                    if (false)
+                    if (!boatList.Exists(x => x.MemberID == _boat.MemberID))
                     {
                         throw new Exception();
                     }
@@ -166,7 +166,7 @@ namespace BåtklubbGladPirat.View
                     Console.Write("Lägga till en båt på vem?: ");
                     _member = memberList[int.Parse(Console.ReadLine())];
 
-                    if (false)
+                    if (!memberList.Exists(x => x.MemberID == _member.MemberID))
                     {
                         throw new Exception();
                     }

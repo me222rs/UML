@@ -46,7 +46,6 @@
     <Compile Include="Model\Repository\BoatRepository.cs" />
     <Compile Include="Model\Repository\MemberRepository.cs" />
     <Compile Include="Model\Repository\Repository.cs" />
-    <Compile Include="Model\Unique.cs" />
     <Compile Include="View\BoatView.cs" />
     <Compile Include="View\MemberView.cs" />
     <Compile Include="View\MenuView.cs" />

@@ -27,6 +27,11 @@ namespace BåtklubbGladPirat.Controller
             boatView = new BoatView();
             memberList = new List<Member>(100);
 
+            GetLists();
+        }
+
+        public void GetLists() 
+        {
             memberList = memberModel.getAllMembers();
             boatList = boatModel.getAllBoats();
         }
@@ -75,6 +80,7 @@ namespace BåtklubbGladPirat.Controller
                     case 10:
                         memberModel.SaveMembers(memberList);
                         boatModel.SaveBoats(boatList);
+                        GetLists();
                         break;
                 }
                 mv.ContinueOnKeyPressed();
