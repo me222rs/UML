@@ -24,52 +24,42 @@ namespace BåtklubbGladPirat.Model
 
     class BoatModel
     {
+        private int high = 9999;
+        private int low = 1111;
         MemberModel memberModel;
-        BoatRepository boatRepository;
+        MemberRepository memberRepository;
 
         public BoatModel() 
         {
             memberModel = new MemberModel();
-            boatRepository = new BoatRepository();
+            memberRepository = new MemberRepository();
         }
 
-        public void SaveBoats(List<Boat> boatList) 
+        public void AddBoat(Member member, BoatTypes type, int length, List<Member> memberList)
         {
-            boatRepository.SaveBoats(boatList);
-        }
-
-        public void AddBoat(Member member, BoatTypes type, int length, List<Boat> boatList)
-        {
-            boatList.Add(new Boat
+            member.Boat.Add(new Boat
             {
-                MemberID = member.MemberID,
-                BoatID = boatRepository.createBoatUniqueNumber(),
+                BoatID = memberRepository.createUniqueNumber(low, high),
                 Type = type.ToString(),
                 Length = length,
             });
         }
 
-        public void RemoveBoat(Boat boat, List<Boat> boatList)
-        {
-            boatList.RemoveAll(x => x.BoatID == boat.BoatID);//Tar bort en båt som matchar båtid
+        public void RemoveBoat(Member member, Boat boat)
+        {   //Tar bort en båt som matchar båtid
+            member.Boat.RemoveAll(x => x.BoatID == boat.BoatID);
         }
 
-        public void Editboat(Boat boat, BoatTypes type, int length, List<Boat> boatList)
+        public void Editboat(Member member, Boat boat, BoatTypes type, int length)
         {
-            boatList.RemoveAll(x => x.BoatID == boat.BoatID);
+            member.Boat.RemoveAll(x => x.BoatID == boat.BoatID);
 
-            boatList.Add(new Boat
+            member.Boat.Add(new Boat
             {
-                MemberID = boat.MemberID,
+                BoatID = boat.BoatID,
                 Type = type.ToString(),
                 Length = length,
-                BoatID = boat.BoatID
             });
-        }
-
-        public List<Boat> getAllBoats()//Visar alla båtar som finns
-        {
-            return boatRepository.ViewAllboats();
         }
     }
 }

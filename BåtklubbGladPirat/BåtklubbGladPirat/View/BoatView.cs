@@ -35,12 +35,20 @@ namespace BåtklubbGladPirat.View
             return _boat;
         }
 
-        public void EditBoat(List<Boat> boatList) //Frågar vilken båt du vill redigera
+        public void EditBoat(List<Member> memberList) //Frågar vilken båt du vill redigera
         {
             int count = 0;
-            foreach (Boat r in boatList)
+            foreach (Member line in memberList)
             {
-                Console.WriteLine("{0}: {1} {2} {3}", count, r.MemberID, r.Type, r.Length);
+                Console.WriteLine("{0}: {1} {2}", count, line.MemberID, line.Name);
+                count++;
+            }
+            Console.Write("Vilken medlem ska ta bort en båt??!?: ");
+            _member = memberList[int.Parse(Console.ReadLine())];
+            count = 0;
+            foreach (Boat line in _member.Boat)
+            {
+                Console.WriteLine("{0}: {1} {2}", count, line.Type, line.Length); //lägger till radnummer framför
                 count++;
             }
             do
@@ -48,9 +56,9 @@ namespace BåtklubbGladPirat.View
                 try
                 {
                     Console.Write("Vilken båt vill du redigera?: ");
-                    _boat = boatList[int.Parse(Console.ReadLine())];
+                    _boat = _member.Boat[int.Parse(Console.ReadLine())];
 
-                    if (!boatList.Exists(x => x.MemberID == _boat.MemberID))
+                    if (!_member.Boat.Exists(x => x.BoatID == _boat.BoatID))
                     {
                         throw new Exception();
                     }
@@ -117,13 +125,20 @@ namespace BåtklubbGladPirat.View
             } while (true);
         }
         //***
-        public void RemoveBoat(List<Boat> boatList)//Frågar vilken båt man vill ta bort
+        public void RemoveBoat(List<Member> memberList)//Frågar vilken båt man vill ta bort
         {
             int count = 0;
-            
-            foreach (Boat line in boatList)
+            foreach (Member line in memberList)
             {
-                Console.WriteLine("{0}: {1} {2} {3}", count, line.MemberID, line.Type, line.BoatID); //lägger till radnummer framför
+                Console.WriteLine("{0}: {1} {2}", count, line.MemberID, line.Name);
+                count++;
+            }
+            Console.Write("Vilken medlem ska ta bort en båt??!?: ");
+            _member = memberList[int.Parse(Console.ReadLine())];
+            count = 0;
+            foreach (Boat line in _member.Boat)
+            {
+                Console.WriteLine("{0}: {1} {2}", count, line.Type, line.Length); //lägger till radnummer framför
                 count++;
             }
 
@@ -132,9 +147,9 @@ namespace BåtklubbGladPirat.View
                 try
                 {
                     Console.Write("Vilken båt vill du ta bort?: ");
-                    _boat = boatList[int.Parse(Console.ReadLine())];
+                    _boat = _member.Boat[int.Parse(Console.ReadLine())];
 
-                    if (!boatList.Exists(x => x.MemberID == _boat.MemberID))
+                    if (!_member.Boat.Exists(x => x.BoatID == _boat.BoatID))
                     {
                         throw new Exception();
                     }

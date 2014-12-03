@@ -8,7 +8,6 @@ namespace BåtklubbGladPirat.Model
 {
     class Boat
     {
-        public int MemberID { get; set; }
         public int BoatID { get; set; }
         public string Type { get; set; }
         public int Length { get; set; }

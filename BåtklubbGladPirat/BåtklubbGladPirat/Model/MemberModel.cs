@@ -16,6 +16,8 @@ namespace BåtklubbGladPirat.Model
     class MemberModel
     {
         MemberRepository memberRepository;
+        private int high = 999999;
+        private int low = 111111;
 
         public MemberModel() 
         {
@@ -31,7 +33,7 @@ namespace BåtklubbGladPirat.Model
         {
             memberList.Add(new Member
             {
-                MemberID = memberRepository.createUniqueNumber(),
+                MemberID = memberRepository.createUniqueNumber(low, high),
                 Name = name,
                 PersonalNumber = personNumber,
             });
@@ -41,22 +43,30 @@ namespace BåtklubbGladPirat.Model
             memberRepository.SaveMembers(memberList);
         }
 
-        public void DeleteMember(Member member, List<Member> memberList, List<Boat> boatList)//Tar bort medlem beroende på radnummer
+        public void DeleteMember(Member member, List<Member> memberList)//Tar bort medlem beroende på radnummer
         {
             memberList.RemoveAll(x => x.MemberID == member.MemberID);
-            boatList.RemoveAll(x => x.MemberID == member.MemberID);
-           
         }
 
         public void EditMember(Member member, string name, int personalID, List<Member> memberList)
         {
             memberList.RemoveAll(x => x.MemberID == member.MemberID);
-            
+            List<Boat> boatlist = new List<Boat>(100);
+            foreach (Boat b in member.Boat)
+            {
+                boatlist.Add(new Boat 
+                {
+                    BoatID = b.BoatID,
+                    Type = b.Type,
+                    Length = b.Length,
+                });
+            }
             memberList.Add(new Member
             {
                 MemberID = member.MemberID,
                 Name = name,
                 PersonalNumber = personalID,
+                Boat = boatlist,                
             });
         }
     }

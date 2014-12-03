@@ -29,7 +29,7 @@ namespace BåtklubbGladPirat.View
             return _member;
         }
 
-        public void ShowMember(List<Member> memberList, List<Boat>boatList)//Visa enskild medlem 
+        public void ShowMember(List<Member> memberList)//Visa enskild medlem 
         {
             List<Boat> strArr = new List<Boat>(100);
             int count = 0;
@@ -58,27 +58,11 @@ namespace BåtklubbGladPirat.View
                 }
             } while (true);
 
-            if (boatList.Exists(x => x.MemberID == _member.MemberID))//Om man har båtar, lägg dom i en lista 
-            {
-                foreach(Boat x in boatList)
-                {
-                    if (x.MemberID == _member.MemberID)
-                    {
-                        strArr.Add(new Boat
-                        {
-                            Type = x.Type,
-                            Length = x.Length,
-                            BoatID = x.BoatID,
-                        });
-                    }
-               }
-            }
-
             Console.Clear();
             Console.WriteLine(_member.MemberID + " " + _member.Name + " " + _member.PersonalNumber);
 
-            foreach(Boat x in strArr){
-                Console.WriteLine(x.Type + " " + x.Length + " " + x.BoatID);
+            foreach(Boat x in _member.Boat){
+                Console.WriteLine(x.Type + " " + x.Length);
             }
         }
 
@@ -191,7 +175,7 @@ namespace BåtklubbGladPirat.View
         {
             foreach (Member r in memberList)
             {
-                Console.WriteLine(r.MemberID + " " + r.Name + " " + r.NumberOfBoats + " Båt(ar)");
+                Console.WriteLine(r.MemberID + " " + r.Name + " " + r.Boat.Count + " Båt(ar)");
             }
         }
 

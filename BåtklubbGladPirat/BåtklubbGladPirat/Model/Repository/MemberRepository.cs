@@ -9,50 +9,77 @@ namespace BåtklubbGladPirat.Model.Repository
 {
     class MemberRepository : Repository
     {
+        enum ReadStatus { Member, Boat }
+        private string memberSeperator = "[Member]";
+        private string boatSeperator = "[Boat]";
+
         private List<Member> memberList;
 
         public void SaveMembers(List<Member> members) {
             File.WriteAllText(memberTextFile, String.Empty);
             using (StreamWriter writer = new StreamWriter(memberTextFile, true))
             {
-                foreach (Member x in members) {
-                    writer.WriteLine(x.MemberID + ";" + x.Name + ";" + x.PersonalNumber + ";");
+                foreach (Member m in members) {
+                    writer.WriteLine(memberSeperator);
+                    writer.WriteLine(m.MemberID + ";" + m.Name + ";" + m.PersonalNumber + ";");
+                    writer.WriteLine(boatSeperator);
+                    foreach (Boat b in m.Boat)
+                    {
+                        writer.WriteLine(b.BoatID + ";" + b.Type + ";" + b.Length);
+                    }
                 }
             }
         }
 
         public List<Member> getAllMembers() {
-
             string[] lines = File.ReadAllLines(memberTextFile);
-            string[] numberOfBoats = File.ReadAllLines(boatTextFile);
             memberList = new List<Member>(100);
-            Member member = new Member();
+            ReadStatus status = new ReadStatus();
+            var m = new Member();
+            var b = new Boat();
 
             foreach (string memberLine in lines)
             {
-                string[] memberId = memberLine.Split(';');
-                int count = 0;
-                foreach (string boatLine in numberOfBoats)
+                
+                if(memberLine == memberSeperator)
                 {
-                    string[] boatId = boatLine.Split(';');
-                    if (memberId[0] == boatId[0])//Kollar om medlemsnummer i en rad är lika med båtars medlemsnummer
-                    {
-                        count++;
-                    }
+                    status = ReadStatus.Member;
                 }
-                memberList.Add(new Member
+                else if (memberLine == boatSeperator)
                 {
-                    MemberID = int.Parse(memberId[0]),
-                    Name = memberId[1],
-                    PersonalNumber = int.Parse(memberId[2]),
-                    NumberOfBoats = count,
-                });//Lägger till hur många båtar som varje ensklid medlem har.
+                    status = ReadStatus.Boat;
+                }
+                else
+                {
+                    if (status == ReadStatus.Member) 
+                    {
+                        string[] textSplit = memberLine.Split(';');
+                        m = new Member 
+                        {
+                            MemberID = int.Parse(textSplit[0]),
+                            Name = textSplit[1],
+                            PersonalNumber = int.Parse(textSplit[2]),
+                        };
+                        memberList.Add(m);
+                    }
+                    else if (status == ReadStatus.Boat) 
+                    {
+                        string[] textSplit = memberLine.Split(';');
+                        b = new Boat 
+                        {
+                            BoatID = int.Parse(textSplit[0]),
+                            Type = textSplit[1],
+                            Length = int.Parse(textSplit[2]),
+                        };
+                        memberList.Last().Addd(b);
+                    } 
+                } 
             }
             memberList.TrimExcess();
             return memberList;//Returnar en lista med medlemmar och hur många båtar de har
         }
 
-        public int createUniqueNumber()
+        public int createUniqueNumber(int low, int high)
         {
             bool ifNumberExists;
             int UniqueNumber;
@@ -61,7 +88,7 @@ namespace BåtklubbGladPirat.Model.Repository
             {
                 Random random = new Random();
 
-                UniqueNumber = random.Next(111111, 999999);
+                UniqueNumber = random.Next(low, high);
 
                 string[] lines = File.ReadAllLines(unikTextFile);
                 ifNumberExists = false;

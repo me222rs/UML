@@ -1,3 +1,12 @@
-389314;test;22222222;
-218371;Eric;11111111;
-742518;asd;11112222;
+[Member]
+389314;Emil;12332111;
+[Boat]
+4444;Motorseglare;455
+[Member]
+218371;Eric;12343211;
+[Boat]
+5465;Segelb�t;111
+6778;Kajak;111
+[Member]
+169553;Micke;12345678;
+[Boat]

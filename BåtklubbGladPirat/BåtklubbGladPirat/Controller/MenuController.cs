@@ -17,7 +17,6 @@ namespace BåtklubbGladPirat.Controller
         MemberView memberView;
         MemberModel memberModel;
         List<Member> memberList;
-        List<Boat> boatList;
         public MenuController()
         {
             boatModel = new BoatModel();
@@ -33,7 +32,6 @@ namespace BåtklubbGladPirat.Controller
         public void GetLists() 
         {
             memberList = memberModel.getAllMembers();
-            boatList = boatModel.getAllBoats();
         }
 
         public void MenuChoice()
@@ -56,31 +54,29 @@ namespace BåtklubbGladPirat.Controller
                         break;
                     case 4:
                         memberView.DeleteMember(memberList);// Ta bort medlem
-                        memberModel.DeleteMember(memberView.getMember(), memberList, boatList);
+                        memberModel.DeleteMember(memberView.getMember(), memberList);
                         break;
                     case 5:
                         memberView.EditMember(memberList);// Redigera medlem
                         memberModel.EditMember(memberView.getMember(), memberView.getFName(), memberView.getPersonId(), memberList);
                         break;
                     case 6:
-                        memberView.ShowMember(memberList, boatList);//Visa en enstaka medlem
+                        memberView.ShowMember(memberList);//Visa en enstaka medlem
                         break;
                     case 7:
                         boatView.AddBoat(memberList);//Lägger till en ny båt
-                        boatModel.AddBoat(boatView.getMember(), boatView.getSelectedBoatType(), boatView.getLength(), boatList);
+                        boatModel.AddBoat(boatView.getMember(), boatView.getSelectedBoatType(), boatView.getLength(), memberList);
                         break;
                     case 8:
-                        boatView.RemoveBoat(boatList);//Tar bort en befintlig båt
-                        boatModel.RemoveBoat(boatView.getBoat(), boatList);
+                        boatView.RemoveBoat(memberList);//Tar bort en befintlig båt
+                        boatModel.RemoveBoat(boatView.getMember(), boatView.getBoat());
                         break;
                     case 9:
-                        boatView.EditBoat(boatList);//Redigerar en båt
-                        boatModel.Editboat(boatView.getBoat(), boatView.getSelectedBoatType(), boatView.getLength(), boatList);
+                        boatView.EditBoat(memberList);//Redigerar en båt
+                        boatModel.Editboat(boatView.getMember(), boatView.getBoat(), boatView.getSelectedBoatType(), boatView.getLength());
                         break;
                     case 10:
                         memberModel.SaveMembers(memberList);
-                        boatModel.SaveBoats(boatList);
-                        GetLists();
                         break;
                 }
                 mv.ContinueOnKeyPressed();
