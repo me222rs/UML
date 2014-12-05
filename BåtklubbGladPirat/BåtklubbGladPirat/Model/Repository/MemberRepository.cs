@@ -16,10 +16,15 @@ namespace BåtklubbGladPirat.Model.Repository
         private List<Member> memberList;
 
         public void SaveMembers(List<Member> members) {
+
+
             File.WriteAllText(memberTextFile, String.Empty);
             using (StreamWriter writer = new StreamWriter(memberTextFile, true))
             {
                 foreach (Member m in members) {
+
+
+
                     writer.WriteLine(memberSeperator);
                     writer.WriteLine(m.MemberID + ";" + m.Name + ";" + m.PersonalNumber + ";");
                     writer.WriteLine(boatSeperator);
@@ -79,7 +84,7 @@ namespace BåtklubbGladPirat.Model.Repository
             return memberList;//Returnar en lista med medlemmar och hur många båtar de har
         }
 
-        public int createUniqueNumber(int low, int high)
+        public int createUniqueNumber(int low, int high, List<Member>members)
         {
             bool ifNumberExists;
             int UniqueNumber;
@@ -89,15 +94,41 @@ namespace BåtklubbGladPirat.Model.Repository
                 Random random = new Random();
 
                 UniqueNumber = random.Next(low, high);
-
-                string[] lines = File.ReadAllLines(unikTextFile);
                 ifNumberExists = false;
+                
+                
+                 try
+                   {
+                        foreach (Member m in members)
+                        {
 
-                if (lines.Contains(UniqueNumber.ToString()))
-                {
-                    ifNumberExists = true;
-                    throw new Exception();
-                }
+                            if (m.MemberID == UniqueNumber)
+                            {
+                                ifNumberExists = true;
+
+                                throw new Exception();
+                            }
+
+                            
+                                foreach (Boat b in m.Boat)
+                                {
+                                
+                                    if (b.BoatID == UniqueNumber)
+                                    {
+                                        ifNumberExists = true;
+                                        throw new Exception();
+                                    }
+                                }   
+                     }
+                        
+                 }
+                 catch
+                 {
+                     Console.WriteLine("Något gick fel, försök igen!");
+
+                     Environment.Exit(0);
+                 }
+
             } while (ifNumberExists == true);
 
             return UniqueNumber;

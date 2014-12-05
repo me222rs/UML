@@ -33,7 +33,7 @@ namespace BåtklubbGladPirat.Model
         {
             memberList.Add(new Member
             {
-                MemberID = memberRepository.createUniqueNumber(low, high),
+                MemberID = memberRepository.createUniqueNumber(low, high, memberList),
                 Name = name,
                 PersonalNumber = personNumber,
             });

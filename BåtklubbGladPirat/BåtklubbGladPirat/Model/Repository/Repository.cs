@@ -10,6 +10,6 @@ namespace BåtklubbGladPirat.Model.Repository
     class Repository
     {
         protected const string memberTextFile = "medlem.txt";
-        protected const string unikTextFile = "UniktNummer.txt";
+        
     }
 }

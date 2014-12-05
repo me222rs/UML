@@ -1,12 +1,9 @@
 [Member]
-389314;Emil;12332111;
+171791;test1;12345678;
 [Boat]
-4444;Motorseglare;455
+2793;Motorbåt;123
+1736;Kajak;367
 [Member]
-218371;Eric;12343211;
+689766;test2;12345678;
 [Boat]
-5465;Segelb�t;111
-6778;Kajak;111
-[Member]
-169553;Micke;12345678;
-[Boat]
+7239;Kajak;345

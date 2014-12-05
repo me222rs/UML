@@ -39,7 +39,7 @@ namespace BåtklubbGladPirat.Model
         {
             member.Boat.Add(new Boat
             {
-                BoatID = memberRepository.createUniqueNumber(low, high),
+                BoatID = memberRepository.createUniqueNumber(low, high, memberList),
                 Type = type.ToString(),
                 Length = length,
             });

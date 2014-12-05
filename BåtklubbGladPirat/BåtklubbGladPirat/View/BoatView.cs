@@ -130,16 +130,18 @@ namespace BåtklubbGladPirat.View
             int count = 0;
             foreach (Member line in memberList)
             {
-                Console.WriteLine("{0}: {1} {2}", count, line.MemberID, line.Name);
-                count++;
+                    Console.WriteLine("{0}: {1} {2}", count, line.MemberID, line.Name);
+                    count++;
             }
             Console.Write("Vilken medlem ska ta bort en båt??!?: ");
             _member = memberList[int.Parse(Console.ReadLine())];
             count = 0;
             foreach (Boat line in _member.Boat)
             {
-                Console.WriteLine("{0}: {1} {2}", count, line.Type, line.Length); //lägger till radnummer framför
-                count++;
+
+                    Console.WriteLine("{0}: {1} {2}", count, line.Type, line.Length); //lägger till radnummer framför
+                    count++;
+                
             }
 
             do
